@@ -1,5 +1,7 @@
+import UsersList from './features/users/UsersList';
+import {} from './app/slices/users/usersSlice';
 const App = () => {
-  return <div>Hello</div>;
+  return <UsersList />;
 };
 
 export default App;
