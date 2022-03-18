@@ -27,13 +27,16 @@ const usersSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetUserState: () => initialState,
   },
 });
 
 export const { reducer: usersReducer } = usersSlice;
 
-export const { fetchUserInit, fetchUserSuccess, fetchUserFailure } =
+const { fetchUserInit, fetchUserSuccess, fetchUserFailure } =
   usersSlice.actions;
+
+export const resetUserState = usersSlice.actions.resetUserState;
 
 export const fetchUser = () => async (dispatch: Dispatch) => {
   dispatch(fetchUserInit());
