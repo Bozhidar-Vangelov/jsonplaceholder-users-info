@@ -15,15 +15,15 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
-    fetchUserInit(state) {
+    fetchUsersInit(state) {
       state.loading = true;
     },
-    fetchUserSuccess(state, action) {
+    fetchUsersSuccess(state, action) {
       state.loading = false;
       state.userInfo = action.payload;
       state.error = '';
     },
-    fetchUserFailure(state, action) {
+    fetchUsersFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
     },
@@ -33,19 +33,19 @@ const usersSlice = createSlice({
 
 export const { reducer: usersReducer } = usersSlice;
 
-const { fetchUserInit, fetchUserSuccess, fetchUserFailure } =
+const { fetchUsersInit, fetchUsersSuccess, fetchUsersFailure } =
   usersSlice.actions;
 
 export const resetUserState = usersSlice.actions.resetUserState;
 
-export const fetchUser = () => async (dispatch: Dispatch) => {
-  dispatch(fetchUserInit());
+export const fetchUsers = () => async (dispatch: Dispatch) => {
+  dispatch(fetchUsersInit());
 
   try {
     const { data } = await axios.get(BASE_URL);
 
-    dispatch(fetchUserSuccess(data));
+    dispatch(fetchUsersSuccess(data));
   } catch (error) {
-    dispatch(fetchUserFailure(error));
+    dispatch(fetchUsersFailure(error));
   }
 };

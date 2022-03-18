@@ -1,10 +1,10 @@
 export interface Users {
   loading: boolean;
   error: string;
-  userInfo: UserInfo[];
+  userInfo: UsersInfo[];
 }
 
-export interface UserInfo {
+export interface UsersInfo {
   id: number;
   name: string;
   username: string;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchUser, resetUserState } from '../../app/slices/users/usersSlice';
+import { fetchUsers, resetUserState } from '../../app/slices/users/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/configureStore';
 
@@ -10,7 +10,7 @@ const UsersList = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchUsers());
 
     return () => {
       resetUserState();
@@ -29,7 +29,7 @@ const UsersList = () => {
   return (
     <div>
       {userInfo.map((user) => (
-        <div>{user.name}</div>
+        <div key={user.id}>{user.name}</div>
       ))}
     </div>
   );
