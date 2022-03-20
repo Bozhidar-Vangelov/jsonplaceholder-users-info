@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { fetchUsers, resetUserState } from './usersListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/configureStore';
+import { Spin } from 'antd';
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,11 @@ const UsersList = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <div className='example'>
+        <Spin />
+      </div>
+    );
   }
 
   if (error) {
@@ -29,7 +34,7 @@ const UsersList = () => {
   return (
     <div>
       {userInfo.map((user) => (
-        <div key={user.id}>{user.name})</div>
+        <div key={user.id}>{user.name}</div>
       ))}
     </div>
   );

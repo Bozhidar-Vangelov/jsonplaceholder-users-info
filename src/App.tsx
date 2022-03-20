@@ -1,5 +1,7 @@
 import UsersList from './features/users/UsersList';
-import {} from './features/users/usersListSlice';
+
+import './App.css';
+
 const App = () => {
   return <UsersList />;
 };
