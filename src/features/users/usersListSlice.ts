@@ -11,7 +11,7 @@ const initialState: Users = {
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com/users';
 
-const usersSlice = createSlice({
+const usersListSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
@@ -31,12 +31,12 @@ const usersSlice = createSlice({
   },
 });
 
-export const { reducer: usersReducer } = usersSlice;
+export const { reducer: usersReducer } = usersListSlice;
 
 const { fetchUsersInit, fetchUsersSuccess, fetchUsersFailure } =
-  usersSlice.actions;
+  usersListSlice.actions;
 
-export const resetUserState = usersSlice.actions.resetUserState;
+export const resetUserState = usersListSlice.actions.resetUserState;
 
 export const fetchUsers = () => async (dispatch: Dispatch) => {
   dispatch(fetchUsersInit());

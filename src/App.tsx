@@ -1,5 +1,5 @@
 import UsersList from './features/users/UsersList';
-import {} from './app/slices/users/usersSlice';
+import {} from './features/users/usersListSlice';
 const App = () => {
   return <UsersList />;
 };
