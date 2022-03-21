@@ -10,6 +10,7 @@ interface UserProps {
 
 const UserCard: FC<UserProps> = ({ userInfo }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState(userInfo);
 
   const toggle = () => {
     setIsOpen((isOpen) => !isOpen);
@@ -21,6 +22,13 @@ const UserCard: FC<UserProps> = ({ userInfo }) => {
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+  };
+
+  const handleOnChange = (e: any) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -41,7 +49,7 @@ const UserCard: FC<UserProps> = ({ userInfo }) => {
         autoComplete='off'
         className={isOpen ? '' : 'hidden'}
       >
-        <UserData userInfo={userInfo} />
+        <UserData onChange={handleOnChange} userInfo={userInfo} />
 
         <Form.Item wrapperCol={{ offset: 2 }}>
           <Button type='primary' htmlType='submit'>
