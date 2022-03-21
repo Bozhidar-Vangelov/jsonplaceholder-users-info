@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { fetchUsers, resetUserState } from './usersListSlice';
+import { useEffect } from 'react';
+import { fetchUsers, resetUsersState } from './usersListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/configureStore';
 import { List, Empty } from 'antd';
-import User from './User';
+import User from './UserCard';
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const UsersList = () => {
     dispatch(fetchUsers());
 
     return () => {
-      resetUserState();
+      resetUsersState();
     };
   }, [dispatch]);
 
@@ -29,7 +29,7 @@ const UsersList = () => {
       dataSource={userInfo}
       bordered
       loading={loading}
-      renderItem={(user) => <User user={user}></User>}
+      renderItem={(user) => <User userInfo={user}></User>}
     />
   );
 };

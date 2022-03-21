@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Users } from './types';
 
 const initialState: Users = {
-  loading: false,
+  loading: true,
   error: '',
   userInfo: [],
 };
@@ -15,9 +15,6 @@ const usersListSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
-    fetchUsersInit(state) {
-      state.loading = true;
-    },
     fetchUsersSuccess(state, action) {
       state.loading = false;
       state.userInfo = action.payload;
@@ -27,20 +24,20 @@ const usersListSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    resetUserState: () => initialState,
+    resetUsersState: () => initialState,
+    updateUsersState(state, action) {
+      state.loading = false;
+      state.userInfo = action.payload;
+    },
   },
 });
 
 export const { reducer: usersReducer } = usersListSlice;
 
-const { fetchUsersInit, fetchUsersSuccess, fetchUsersFailure } =
-  usersListSlice.actions;
-
-export const resetUserState = usersListSlice.actions.resetUserState;
+const { fetchUsersSuccess, fetchUsersFailure } = usersListSlice.actions;
+export const { resetUsersState, updateUsersState } = usersListSlice.actions;
 
 export const fetchUsers = () => async (dispatch: Dispatch) => {
-  dispatch(fetchUsersInit());
-
   try {
     const { data } = await axios.get(BASE_URL);
 
