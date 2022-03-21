@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchUsers, resetUserState } from './usersListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/configureStore';
-import { Spin } from 'antd';
+import { List, Empty } from 'antd';
+import User from './User';
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -18,25 +19,18 @@ const UsersList = () => {
     };
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <div className='example'>
-        <Spin />
-      </div>
-    );
-  }
-
   if (error) {
     console.log(error);
-    return <div>Error</div>;
+    return <Empty description='Failed to load data'></Empty>;
   }
 
   return (
-    <div>
-      {userInfo.map((user) => (
-        <div key={user.id}>{user.name}</div>
-      ))}
-    </div>
+    <List
+      dataSource={userInfo}
+      bordered
+      loading={loading}
+      renderItem={(user) => <User user={user}></User>}
+    />
   );
 };
 
