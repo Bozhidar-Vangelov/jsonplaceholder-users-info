@@ -46,3 +46,14 @@ export const fetchUsers = () => async (dispatch: Dispatch) => {
     dispatch(fetchUsersFailure(error));
   }
 };
+
+export const updateUsers =
+  (userId: number, data: {}) => async (dispatch: Dispatch) => {
+    try {
+      await axios.put(`${BASE_URL}/${userId}`, data);
+
+      dispatch(updateUsersState(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };

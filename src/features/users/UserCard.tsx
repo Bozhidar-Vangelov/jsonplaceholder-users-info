@@ -3,6 +3,8 @@ import { List, Avatar, Form, Button } from 'antd';
 
 import { UsersInfo } from './types';
 import UserData from './UserData';
+import { updateUsers } from './usersListSlice';
+import { useDispatch } from 'react-redux';
 
 interface UserProps {
   userInfo: UsersInfo;
@@ -12,12 +14,16 @@ const UserCard: FC<UserProps> = ({ userInfo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(userInfo);
 
+  const dispatch = useDispatch();
+
   const toggle = () => {
     setIsOpen((isOpen) => !isOpen);
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: {}) => {
     console.log('Success:', values);
+
+    dispatch(updateUsers(userInfo.id, userData));
   };
 
   const onFinishFailed = (errorInfo: any) => {
