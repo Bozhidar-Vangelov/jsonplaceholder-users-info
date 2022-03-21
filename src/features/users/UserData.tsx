@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Form, Input } from 'antd';
 
 import { UsersInfo } from './types';
@@ -9,15 +9,6 @@ interface UserProps {
 }
 
 const UserData: FC<UserProps> = ({ userInfo, onChange }) => {
-  // const [userData, setUserData] = useState(userInfo);
-
-  // const handleOnChange = (e: any) => {
-  //   setUserData({
-  //     ...userData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
   return (
     <>
       <Form.Item label='Name' name='name' initialValue={userInfo.name}>

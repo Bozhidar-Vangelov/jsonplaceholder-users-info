@@ -6,11 +6,12 @@ import UserData from './UserData';
 import { updateUsers } from './usersListSlice';
 import { useDispatch } from 'react-redux';
 
-interface UserProps {
+interface UserCardProps {
   userInfo: UsersInfo;
+  allUsers: {};
 }
 
-const UserCard: FC<UserProps> = ({ userInfo }) => {
+const UserCard: FC<UserCardProps> = ({ userInfo, allUsers }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(userInfo);
 
@@ -23,7 +24,9 @@ const UserCard: FC<UserProps> = ({ userInfo }) => {
   const onFinish = (values: {}) => {
     console.log('Success:', values);
 
-    dispatch(updateUsers(userInfo.id, userData));
+    dispatch(updateUsers(userInfo.id, allUsers));
+
+    console.log(allUsers);
   };
 
   const onFinishFailed = (errorInfo: any) => {
