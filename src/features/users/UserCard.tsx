@@ -14,8 +14,6 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggle = () => {
-    console.log('click');
-
     setIsOpen((isOpen) => !isOpen);
   };
 

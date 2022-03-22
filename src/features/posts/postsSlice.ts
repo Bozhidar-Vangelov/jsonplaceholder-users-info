@@ -24,12 +24,18 @@ const postsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    deletePost(state, action) {
+      state.loading = false;
+      state.allPostsInfo = action.payload;
+    },
   },
 });
 
 export const { reducer: postsReducer } = postsSlice;
 
 const { fetchPostsSuccess, fetchPostsFailure } = postsSlice.actions;
+
+export const { deletePost } = postsSlice.actions;
 
 export const fetchPosts =
   (userId: string | undefined) => async (dispatch: Dispatch) => {
