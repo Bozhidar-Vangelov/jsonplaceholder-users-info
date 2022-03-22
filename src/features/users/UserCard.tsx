@@ -8,10 +8,10 @@ import { useDispatch } from 'react-redux';
 
 interface UserCardProps {
   userInfo: UsersInfo;
-  allUsers: {};
+  allUsersInfo: UsersInfo[];
 }
 
-const UserCard: FC<UserCardProps> = ({ userInfo, allUsers }) => {
+const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(userInfo);
 
@@ -24,9 +24,11 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsers }) => {
   const onFinish = (values: {}) => {
     console.log('Success:', values);
 
-    dispatch(updateUsers(userInfo.id, allUsers));
+    const updateUser = allUsersInfo.map((user) =>
+      user.id !== userData.id ? user : userData
+    );
 
-    console.log(allUsers);
+    dispatch(updateUsers(userInfo.id, updateUser));
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -50,8 +52,8 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsers }) => {
       </List.Item>
       <Form
         name='user'
-        wrapperCol={{ span: 5 }}
-        labelCol={{ span: 2 }}
+        wrapperCol={{ span: 6 }}
+        labelCol={{ span: 3 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}

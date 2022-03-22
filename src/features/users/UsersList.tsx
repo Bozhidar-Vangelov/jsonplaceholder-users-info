@@ -7,11 +7,9 @@ import UserCard from './UserCard';
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const { error, loading, userInfo } = useSelector(
+  const { error, loading, allUsersInfo } = useSelector(
     (state: RootState) => state.users
   );
-
-  console.log(userInfo);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -28,10 +26,12 @@ const UsersList = () => {
 
   return (
     <List
-      dataSource={userInfo}
+      dataSource={allUsersInfo}
       bordered
       loading={loading}
-      renderItem={(user) => <UserCard userInfo={user} allUsers={userInfo} />}
+      renderItem={(user) => (
+        <UserCard userInfo={user} allUsersInfo={allUsersInfo} />
+      )}
     />
   );
 };

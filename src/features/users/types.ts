@@ -1,7 +1,7 @@
 export interface Users {
   loading: boolean;
   error: string;
-  userInfo: UsersInfo[];
+  allUsersInfo: UsersInfo[];
 }
 
 export interface UsersInfo {

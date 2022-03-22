@@ -1,12 +1,12 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { Users } from './types';
+import { Users, UsersInfo } from './types';
 
 const initialState: Users = {
   loading: true,
   error: '',
-  userInfo: [],
+  allUsersInfo: [],
 };
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com/users';
@@ -17,7 +17,7 @@ const usersListSlice = createSlice({
   reducers: {
     fetchUsersSuccess(state, action) {
       state.loading = false;
-      state.userInfo = action.payload;
+      state.allUsersInfo = action.payload;
       state.error = '';
     },
     fetchUsersFailure(state, action) {
@@ -27,7 +27,7 @@ const usersListSlice = createSlice({
     resetUsersState: () => initialState,
     updateUsersState(state, action) {
       state.loading = false;
-      state.userInfo = action.payload;
+      state.allUsersInfo = action.payload;
     },
   },
 });
@@ -48,7 +48,7 @@ export const fetchUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const updateUsers =
-  (userId: number, data: {}) => async (dispatch: Dispatch) => {
+  (userId: number, data: UsersInfo[]) => async (dispatch: Dispatch) => {
     try {
       await axios.put(`${BASE_URL}/${userId}`, data);
 
