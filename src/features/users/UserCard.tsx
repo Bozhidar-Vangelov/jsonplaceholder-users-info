@@ -1,10 +1,11 @@
-import { FC, HtmlHTMLAttributes, useState } from 'react';
+import { FC, useState } from 'react';
 import { List, Avatar, Form, Button } from 'antd';
 
 import { UserInfo } from './types';
 import UserData from './UserData';
 import { updateUsers } from './usersListSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 interface UserCardProps {
   userInfo: UserInfo;
@@ -81,6 +82,9 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
           >
             Reset
           </Button>
+          <Link to={`posts/${userInfo.id}`}>
+            <Button>Go to users' posts</Button>
+          </Link>
         </Form.Item>
       </Form>
     </>
