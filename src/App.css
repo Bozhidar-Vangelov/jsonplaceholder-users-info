@@ -8,6 +8,14 @@
   margin-top: 5em;
 }
 
+.ant-form {
+  margin-top: 10px;
+}
+
+.ant-list-item {
+  display: block;
+}
+
 .hidden {
   display: none;
 }

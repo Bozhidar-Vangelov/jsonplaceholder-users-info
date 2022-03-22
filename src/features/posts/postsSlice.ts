@@ -1,6 +1,7 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { PostInfo, Posts } from './types';
+
+import { Posts } from './types';
 
 const initialState: Posts = {
   loading: true,

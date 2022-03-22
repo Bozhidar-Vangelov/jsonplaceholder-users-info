@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Card, Button, Empty } from 'antd';
+
 import { RootState } from '../../app/store/configureStore';
-import UserCard from '../users/UserCard';
 import { fetchPosts } from './postsSlice';
+import UserData from '../users/UserData';
 
 const Posts = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { allUsersInfo } = useSelector((state: RootState) => state.users);
+  const { loading, error, allUsersInfo } = useSelector(
+    (state: RootState) => state.users
+  );
   const { allPostsInfo } = useSelector((state: RootState) => state.posts);
 
   const user = allUsersInfo[Number(userId) - 1];
@@ -17,7 +21,28 @@ const Posts = () => {
     dispatch(fetchPosts(userId));
   }, [dispatch]);
 
-  return <div>{<UserCard userInfo={user} allUsersInfo={allUsersInfo} />}</div>;
+  if (error) {
+    console.log(error);
+    return <Empty description='Failed to load data'></Empty>;
+  }
+
+  return (
+    <Card
+      cover={
+        <img
+          style={{ width: 240 }}
+          alt='example'
+          src='https://joeschmoe.io/api/v1/random'
+        />
+      }
+    >
+      <Card.Meta title={user.name} />
+      <UserData userInfo={user} isOpen={true} allUsersInfo={allUsersInfo} />
+      <Link to='/'>
+        <Button>See all users</Button>
+      </Link>
+    </Card>
+  );
 };
 
 export default Posts;

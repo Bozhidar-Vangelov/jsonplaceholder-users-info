@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { fetchUsers, resetUsersState, updateUsers } from './usersListSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store/configureStore';
 import { List, Empty } from 'antd';
+
+import { fetchUsers, resetUsersState } from './usersListSlice';
+import { RootState } from '../../app/store/configureStore';
 import UserCard from './UserCard';
 
 const UsersList = () => {
