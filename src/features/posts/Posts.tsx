@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Button, Empty } from 'antd';
+import { Card, Button, Empty, Space } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
 import { fetchPosts } from './postsSlice';
@@ -26,8 +26,11 @@ const Posts = () => {
     return <Empty description='Failed to load data'></Empty>;
   }
 
+  console.log(allPostsInfo);
+
   return (
     <Card
+      loading={loading}
       cover={
         <img
           style={{ width: 240 }}
@@ -38,6 +41,16 @@ const Posts = () => {
     >
       <Card.Meta title={user.name} />
       <UserData userInfo={user} isOpen={true} allUsersInfo={allUsersInfo} />
+      {allPostsInfo.map((post) => (
+        <Space>
+          <Card key={post.id} title={post.title}>
+            <p>{post.body}</p>
+            <Button type='primary' danger>
+              Delete post
+            </Button>
+          </Card>
+        </Space>
+      ))}
       <Link to='/'>
         <Button>See all users</Button>
       </Link>
