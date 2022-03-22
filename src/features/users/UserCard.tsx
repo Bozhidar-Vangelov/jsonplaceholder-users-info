@@ -82,8 +82,8 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
           >
             Reset
           </Button>
-          <Link to={`posts/${userInfo.id}`}>
-            <Button>Go to users' posts</Button>
+          <Link to={`${userInfo.id}/posts`}>
+            <Button>See Posts</Button>
           </Link>
         </Form.Item>
       </Form>
