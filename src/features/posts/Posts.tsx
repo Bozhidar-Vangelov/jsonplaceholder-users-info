@@ -42,8 +42,8 @@ const Posts = () => {
       <Card.Meta title={user.name} />
       <UserData userInfo={user} isOpen={true} allUsersInfo={allUsersInfo} />
       {allPostsInfo.map((post) => (
-        <Space>
-          <Card key={post.id} title={post.title}>
+        <Space key={post.id}>
+          <Card title={post.title}>
             <p>{post.body}</p>
             <Button type='primary' danger>
               Delete post

@@ -16,6 +16,10 @@
   display: block;
 }
 
+.ant-space {
+  display: block;
+}
+
 .hidden {
   display: none;
 }

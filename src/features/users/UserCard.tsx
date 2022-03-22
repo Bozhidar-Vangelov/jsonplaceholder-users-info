@@ -14,6 +14,8 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggle = () => {
+    console.log('click');
+
     setIsOpen((isOpen) => !isOpen);
   };
 
@@ -24,19 +26,21 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
           avatar={<Avatar src='https://joeschmoe.io/api/v1/random' />}
           title={userInfo.name}
         />
-        <UserData
-          isOpen={isOpen}
-          userInfo={userInfo}
-          allUsersInfo={allUsersInfo}
-        />
-        {isOpen ? (
+      </List.Item>
+      {isOpen ? (
+        <>
+          <UserData
+            isOpen={isOpen}
+            userInfo={userInfo}
+            allUsersInfo={allUsersInfo}
+          />
           <Link to={`${userInfo.id}/posts`}>
             <Button>See Posts</Button>
           </Link>
-        ) : (
-          ''
-        )}
-      </List.Item>
+        </>
+      ) : (
+        ''
+      )}
     </>
   );
 };
