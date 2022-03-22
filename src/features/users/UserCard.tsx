@@ -14,6 +14,7 @@ interface UserCardProps {
 const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(userInfo);
+  const [isChanged, setIsChanged] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -36,6 +37,8 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   };
 
   const handleOnChange = (e: any) => {
+    setIsChanged(true);
+
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
@@ -63,10 +66,19 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
         <UserData onChange={handleOnChange} userInfo={userInfo} />
 
         <Form.Item wrapperCol={{ offset: 2 }}>
-          <Button type='primary' htmlType='submit'>
+          <Button
+            disabled={isChanged ? false : true}
+            type='primary'
+            htmlType='submit'
+          >
             Save Changes
           </Button>
-          <Button type='primary' danger htmlType='reset'>
+          <Button
+            onClick={() => setIsChanged(false)}
+            type='primary'
+            danger
+            htmlType='reset'
+          >
             Reset
           </Button>
         </Form.Item>
