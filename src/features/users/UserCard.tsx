@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, HtmlHTMLAttributes, useState } from 'react';
 import { List, Avatar, Form, Button } from 'antd';
 
-import { UsersInfo } from './types';
+import { UserInfo } from './types';
 import UserData from './UserData';
 import { updateUsers } from './usersListSlice';
 import { useDispatch } from 'react-redux';
 
 interface UserCardProps {
-  userInfo: UsersInfo;
-  allUsersInfo: UsersInfo[];
+  userInfo: UserInfo;
+  allUsersInfo: UserInfo[];
 }
 
 const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
@@ -24,11 +24,11 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
   const onFinish = (values: {}) => {
     console.log('Success:', values);
 
-    const updateUser = allUsersInfo.map((user) =>
+    const updatedUser = allUsersInfo.map((user) =>
       user.id !== userData.id ? user : userData
     );
 
-    dispatch(updateUsers(userInfo.id, updateUser));
+    dispatch(updateUsers(userInfo.id, updatedUser));
   };
 
   const onFinishFailed = (errorInfo: any) => {

@@ -1,7 +1,7 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { Users, UsersInfo } from './types';
+import { Users, UserInfo } from './types';
 
 const initialState: Users = {
   loading: true,
@@ -48,7 +48,7 @@ export const fetchUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const updateUsers =
-  (userId: number, data: UsersInfo[]) => async (dispatch: Dispatch) => {
+  (userId: number, data: UserInfo[]) => async (dispatch: Dispatch) => {
     try {
       await axios.put(`${BASE_URL}/${userId}`, data);
 

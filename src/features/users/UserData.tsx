@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Form, Input } from 'antd';
 
-import { UsersInfo } from './types';
+import { UserInfo } from './types';
 
 interface UserProps {
-  userInfo: UsersInfo;
+  userInfo: UserInfo;
   onChange: (e: any) => void;
 }
 
