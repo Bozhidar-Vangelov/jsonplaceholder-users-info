@@ -9,7 +9,7 @@ const initialState: Posts = {
   allPostsInfo: [],
 };
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com/users';
+const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -24,29 +24,46 @@ const postsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    deletePost(state, action) {
+    deletePostSuccess(state, action) {
       state.loading = false;
 
       state.allPostsInfo = state.allPostsInfo.filter(
         (state) => state.id !== action.payload
       );
     },
+    deletePostFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
 export const { reducer: postsReducer } = postsSlice;
 
-const { fetchPostsSuccess, fetchPostsFailure } = postsSlice.actions;
-
-export const { deletePost } = postsSlice.actions;
+const {
+  fetchPostsSuccess,
+  fetchPostsFailure,
+  deletePostSuccess,
+  deletePostFailure,
+} = postsSlice.actions;
 
 export const fetchPosts =
   (userId: string | undefined) => async (dispatch: Dispatch) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/${userId}/posts`);
+      const { data } = await axios.get(`${BASE_URL}/users/${userId}/posts`);
 
       dispatch(fetchPostsSuccess(data));
     } catch (error) {
       dispatch(fetchPostsFailure(error));
     }
   };
+
+export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
+  try {
+    await axios.delete(`${BASE_URL}/posts/${postId}`);
+
+    dispatch(deletePostSuccess(postId));
+  } catch (error) {
+    dispatch(deletePostFailure);
+  }
+};
