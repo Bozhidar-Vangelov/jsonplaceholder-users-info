@@ -32,7 +32,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
             userInfo={userInfo}
             allUsersInfo={allUsersInfo}
           />
-          <Link to={`${userInfo.id}/posts`}>
+          <Link to={`users/${userInfo.id}/posts`}>
             <Button>See Posts</Button>
           </Link>
         </>
