@@ -19,10 +19,6 @@ const UsersList = () => {
     }
 
     dispatch(fetchUsers());
-
-    return () => {
-      resetUsersState();
-    };
   }, [dispatch]);
 
   if (error) {

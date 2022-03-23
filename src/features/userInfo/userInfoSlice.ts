@@ -24,7 +24,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    resetUsersState: () => initialState,
+    resetUserState: () => initialState,
     updateUserState(state, action) {
       state.loading = false;
       state.userInfo = action.payload;
@@ -38,7 +38,7 @@ const userSlice = createSlice({
 export const { reducer: userReducer } = userSlice;
 
 const { fetchUserSuccess, fetchUserFailure } = userSlice.actions;
-export const { resetUsersState, updateUserState, fetchUserState } =
+export const { resetUserState, updateUserState, fetchUserState } =
   userSlice.actions;
 
 export const fetchUser =

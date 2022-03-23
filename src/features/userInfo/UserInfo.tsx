@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Card, Button, Empty } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
-import { fetchUser, fetchUserState } from './userInfoSlice';
+import { fetchUser, resetUserState } from './userInfoSlice';
 import UserData from '../users/UserData';
 import Posts from './posts/Posts';
 
@@ -16,12 +16,11 @@ const UserInfo = () => {
   );
 
   useEffect(() => {
-    if (!userInfo) {
-      dispatch(fetchUserState);
-      return;
-    }
-
     dispatch(fetchUser(userId));
+
+    return () => {
+      dispatch(resetUserState());
+    };
   }, [dispatch]);
 
   if (error) {

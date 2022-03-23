@@ -39,9 +39,9 @@ const usersListSlice = createSlice({
 
 export const { reducer: usersReducer } = usersListSlice;
 
-const { fetchUsersSuccess, fetchUsersFailure } = usersListSlice.actions;
-export const { resetUsersState, updateUsersState, fetchUsersState } =
+const { fetchUsersSuccess, fetchUsersFailure, updateUsersState } =
   usersListSlice.actions;
+export const { resetUsersState, fetchUsersState } = usersListSlice.actions;
 
 export const fetchUsers = () => async (dispatch: Dispatch) => {
   try {
