@@ -29,13 +29,17 @@ const userSlice = createSlice({
       state.loading = false;
       state.userInfo = action.payload;
     },
+    fetchUserState: (state) => {
+      state.loading = false;
+    },
   },
 });
 
 export const { reducer: userReducer } = userSlice;
 
 const { fetchUserSuccess, fetchUserFailure } = userSlice.actions;
-export const { resetUsersState, updateUserState } = userSlice.actions;
+export const { resetUsersState, updateUserState, fetchUserState } =
+  userSlice.actions;
 
 export const fetchUser =
   (userId: string | undefined) => async (dispatch: Dispatch) => {

@@ -4,10 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 import { Card, Button, Empty } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
-import { fetchUser } from './userInfoSlice';
+import { fetchUser, fetchUserState } from './userInfoSlice';
 import UserData from '../users/UserData';
 import Posts from './posts/Posts';
-import { fetchUsersState } from '../users/usersListSlice';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -18,8 +17,8 @@ const UserInfo = () => {
   const { allUsersInfo } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
-    if (allUsersInfo.length) {
-      dispatch(fetchUsersState);
+    if (!userInfo) {
+      dispatch(fetchUserState);
       return;
     }
 
@@ -28,7 +27,7 @@ const UserInfo = () => {
 
   if (error) {
     console.log(error);
-    return <Empty description='Failed to load data'></Empty>;
+    return <Empty description='Failed to load data' />;
   }
 
   return (
