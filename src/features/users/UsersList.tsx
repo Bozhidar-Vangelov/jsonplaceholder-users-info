@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, Empty } from 'antd';
 
-import { fetchUsers, resetUsersState } from './usersListSlice';
+import { fetchUsers, resetUsersState, fetchUsersState } from './usersListSlice';
 import { RootState } from '../../app/store/configureStore';
 import UserCard from './UserCard';
 
@@ -13,6 +13,11 @@ const UsersList = () => {
   );
 
   useEffect(() => {
+    if (allUsersInfo.length) {
+      dispatch(fetchUsersState);
+      return;
+    }
+
     dispatch(fetchUsers());
 
     return () => {
