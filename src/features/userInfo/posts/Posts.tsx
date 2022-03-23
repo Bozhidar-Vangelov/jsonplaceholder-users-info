@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { Card, Button, Empty } from 'antd';
+import { useParams } from 'react-router-dom';
+import { Empty } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts } from './postsSlice';
-import UserData from '../../users/UserData';
 import Post from './Post';
 
 const Posts = () => {
