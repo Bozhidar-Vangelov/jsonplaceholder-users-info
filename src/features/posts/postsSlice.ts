@@ -26,7 +26,10 @@ const postsSlice = createSlice({
     },
     deletePost(state, action) {
       state.loading = false;
-      state.allPostsInfo = action.payload;
+
+      state.allPostsInfo = state.allPostsInfo.filter(
+        (state) => state.id !== action.payload
+      );
     },
   },
 });

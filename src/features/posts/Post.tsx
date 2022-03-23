@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Space, Card, Button, Modal } from 'antd';
 
-import { RootState } from '../../app/store/configureStore';
 import { deletePost } from './postsSlice';
 
 interface PostProps {
@@ -12,14 +11,17 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ id, title, body }) => {
-  const { allPostsInfo } = useSelector((state: RootState) => state.posts);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleOnClick = (e: any) => {
     setShowModal((showModal) => !showModal);
+  };
 
-    // dispatch(deletePost(allPostsInfo));
+  const handleOnDelete = (e: any) => {
+    dispatch(deletePost(id));
+
+    setShowModal(false);
   };
 
   return (
@@ -35,7 +37,7 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
         visible={showModal}
         okText='Delete'
         okType='danger'
-        onOk={() => setShowModal(false)}
+        onOk={handleOnDelete}
         onCancel={() => setShowModal(false)}
       >
         <p>This action cannot be undone!</p>
