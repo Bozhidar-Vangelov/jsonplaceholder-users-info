@@ -25,7 +25,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
           title={userInfo.name}
         />
       </List.Item>
-      {isOpen ? (
+      {isOpen && (
         <>
           <UserData
             isOpen={isOpen}
@@ -36,8 +36,6 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
             <Button>See Posts</Button>
           </Link>
         </>
-      ) : (
-        ''
       )}
     </>
   );
