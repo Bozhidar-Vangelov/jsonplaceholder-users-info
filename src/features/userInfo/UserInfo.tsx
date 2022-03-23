@@ -1,25 +1,29 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Button, Empty, Space } from 'antd';
+import { Card, Button, Empty } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
-import { fetchPosts } from './postsSlice';
+import { fetchUser } from './userInfoSlice';
 import UserData from '../users/UserData';
-import Post from './Post';
+import Posts from './posts/Posts';
+import { fetchUsersState } from '../users/usersListSlice';
 
-const Posts = () => {
+const UserInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { loading, error, allUsersInfo } = useSelector(
-    (state: RootState) => state.users
+  const { loading, error, userInfo } = useSelector(
+    (state: RootState) => state.user
   );
-  const { allPostsInfo } = useSelector((state: RootState) => state.posts);
-
-  const user = allUsersInfo[Number(userId) - 1];
+  const { allUsersInfo } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
-    dispatch(fetchPosts(userId));
+    if (allUsersInfo.length) {
+      dispatch(fetchUsersState);
+      return;
+    }
+
+    dispatch(fetchUser(userId));
   }, [dispatch]);
 
   if (error) {
@@ -38,16 +42,13 @@ const Posts = () => {
         />
       }
     >
-      <Card.Meta title={user.name} />
-      <UserData userInfo={user} isOpen={true} allUsersInfo={allUsersInfo} />
+      <UserData userInfo={userInfo} isOpen={true} allUsersInfo={allUsersInfo} />
       <Link to='/'>
         <Button>See all users</Button>
       </Link>
-      {allPostsInfo.map((post) => (
-        <Post key={post.id} id={post.id} body={post.body} title={post.title} />
-      ))}
+      <Posts />
     </Card>
   );
 };
 
-export default Posts;
+export default UserInfo;

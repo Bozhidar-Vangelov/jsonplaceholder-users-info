@@ -4,6 +4,7 @@ import { Form, Input, Button } from 'antd';
 
 import { updateUsers } from './usersListSlice';
 import { UserInfo } from './types';
+import { updateUser } from '../userInfo/userInfoSlice';
 
 interface UserProps {
   userInfo: UserInfo;
@@ -25,6 +26,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen, allUsersInfo }) => {
     );
 
     dispatch(updateUsers(userInfo.id, updatedUser));
+    dispatch(updateUser(userInfo.id, userData));
   };
 
   const onFinishFailed = (errorInfo: any) => {
