@@ -7,10 +7,9 @@ import UserData from './UserData';
 
 interface UserCardProps {
   userInfo: UserInfo;
-  allUsersInfo: UserInfo[];
 }
 
-const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
+const UserCard: FC<UserCardProps> = ({ userInfo }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggle = () => {
@@ -27,11 +26,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo, allUsersInfo }) => {
       </List.Item>
       {isOpen && (
         <>
-          <UserData
-            isOpen={isOpen}
-            userInfo={userInfo}
-            allUsersInfo={allUsersInfo}
-          />
+          <UserData isOpen={isOpen} userInfo={userInfo} />
           <Link to={`users/${userInfo.id}/posts`}>
             <Button>See Posts</Button>
           </Link>

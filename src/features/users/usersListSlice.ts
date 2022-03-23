@@ -27,7 +27,9 @@ const usersListSlice = createSlice({
     resetUsersState: () => initialState,
     updateUsersState(state, action) {
       state.loading = false;
-      state.allUsersInfo = action.payload;
+      state.allUsersInfo = state.allUsersInfo.map((state) =>
+        state.id !== action.payload.id ? state : action.payload
+      );
     },
     fetchUsersState: (state) => {
       state.loading = false;
@@ -52,7 +54,7 @@ export const fetchUsers = () => async (dispatch: Dispatch) => {
 };
 
 export const updateUsers =
-  (userId: number, data: UserInfo[]) => async (dispatch: Dispatch) => {
+  (userId: number, data: {}) => async (dispatch: Dispatch) => {
     try {
       await axios.put(`${BASE_URL}/${userId}`, data);
 

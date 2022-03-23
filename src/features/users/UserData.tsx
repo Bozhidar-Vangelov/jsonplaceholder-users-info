@@ -9,10 +9,9 @@ import { updateUser } from '../userInfo/userInfoSlice';
 interface UserProps {
   userInfo: UserInfo;
   isOpen: boolean;
-  allUsersInfo: UserInfo[];
 }
 
-const UserData: FC<UserProps> = ({ userInfo, isOpen, allUsersInfo }) => {
+const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const [userData, setUserData] = useState(userInfo);
   const [isChanged, setIsChanged] = useState(false);
 
@@ -21,11 +20,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen, allUsersInfo }) => {
   const onFinish = (values: {}) => {
     console.log('Success:', values);
 
-    const updatedUser = allUsersInfo.map((user) =>
-      user.id !== userData.id ? user : userData
-    );
-
-    dispatch(updateUsers(userInfo.id, updatedUser));
+    dispatch(updateUsers(userInfo.id, userData));
     dispatch(updateUser(userInfo.id, userData));
   };
 

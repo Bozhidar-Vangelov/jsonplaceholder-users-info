@@ -27,7 +27,7 @@ const UsersList = () => {
 
   if (error) {
     console.log(error);
-    return <Empty description='Failed to load data'></Empty>;
+    return <Empty description='Failed to load data' />;
   }
 
   return (
@@ -35,9 +35,7 @@ const UsersList = () => {
       dataSource={allUsersInfo}
       bordered
       loading={loading}
-      renderItem={(user) => (
-        <UserCard userInfo={user} allUsersInfo={allUsersInfo} />
-      )}
+      renderItem={(user) => <UserCard userInfo={user} />}
     />
   );
 };

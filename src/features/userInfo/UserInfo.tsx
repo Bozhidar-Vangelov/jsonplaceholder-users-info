@@ -14,7 +14,6 @@ const UserInfo = () => {
   const { loading, error, userInfo } = useSelector(
     (state: RootState) => state.user
   );
-  const { allUsersInfo } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
     if (!userInfo) {
@@ -41,7 +40,7 @@ const UserInfo = () => {
         />
       }
     >
-      <UserData userInfo={userInfo} isOpen={true} allUsersInfo={allUsersInfo} />
+      <UserData userInfo={userInfo} isOpen={true} />
       <Link to='/'>
         <Button>See all users</Button>
       </Link>
