@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Button, Empty } from 'antd';
+import { Card, Button, Empty, Space } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
 import { fetchPosts } from './postsSlice';
@@ -40,12 +40,12 @@ const Posts = () => {
     >
       <Card.Meta title={user.name} />
       <UserData userInfo={user} isOpen={true} allUsersInfo={allUsersInfo} />
-      {allPostsInfo.map((post) => (
-        <Post key={post.id} id={post.id} body={post.body} title={post.title} />
-      ))}
       <Link to='/'>
         <Button>See all users</Button>
       </Link>
+      {allPostsInfo.map((post) => (
+        <Post key={post.id} id={post.id} body={post.body} title={post.title} />
+      ))}
     </Card>
   );
 };
