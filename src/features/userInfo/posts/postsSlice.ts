@@ -35,6 +35,16 @@ const postsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    updatePostsStateSuccess(state, action) {
+      state.loading = false;
+      state.allPostsInfo = state.allPostsInfo.map((state) =>
+        state.id !== action.payload.id ? state : action.payload
+      );
+    },
+    updatePostsStateFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -45,6 +55,8 @@ const {
   fetchPostsFailure,
   deletePostSuccess,
   deletePostFailure,
+  updatePostsStateSuccess,
+  updatePostsStateFailure,
 } = postsSlice.actions;
 
 export const fetchPosts =
@@ -67,3 +79,14 @@ export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
     dispatch(deletePostFailure);
   }
 };
+
+export const updatePosts =
+  (postId: number, data: {}) => async (dispatch: Dispatch) => {
+    try {
+      await axios.put(`${BASE_URL}/posts/${postId}`);
+
+      dispatch(updatePostsStateSuccess(data));
+    } catch (error) {
+      dispatch(updatePostsStateFailure);
+    }
+  };

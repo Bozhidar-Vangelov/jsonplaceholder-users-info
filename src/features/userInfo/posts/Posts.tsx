@@ -16,6 +16,10 @@ const Posts = () => {
   );
 
   useEffect(() => {
+    if (allPostsInfo.length) {
+      return;
+    }
+
     dispatch(fetchPosts(userId));
   }, [dispatch]);
 

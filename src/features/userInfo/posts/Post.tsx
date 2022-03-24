@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Space, Card, Button, Modal, Input } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-import { deletePost } from './postsSlice';
+import { deletePost, updatePosts } from './postsSlice';
 
 interface PostProps {
   id: number;
@@ -14,6 +14,7 @@ interface PostProps {
 const Post: FC<PostProps> = ({ id, title, body }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [post, setPost] = useState({ id, title, body });
 
   const { confirm } = Modal;
 
@@ -32,25 +33,35 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
   };
 
   const handleOnEdit = () => {
+    dispatch(updatePosts(id, post));
+
     setIsEdit(!isEdit);
   };
 
-  const handleOntTitleChange = (e: any) => {
-    title = e.target.value;
-    console.log(title);
-  };
-
-  const handleOnBodyChange = (e: any) => {
-    body = e.target.value;
+  const handleOnChange = (e: any) => {
+    setPost({
+      ...post,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
     <Space>
       {isEdit ? (
         <Card
-          title={<Input defaultValue={title} onChange={handleOntTitleChange} />}
+          title={
+            <Input
+              name='title'
+              defaultValue={post.title}
+              onChange={handleOnChange}
+            />
+          }
         >
-          <Input defaultValue={body} onChange={handleOnBodyChange} />
+          <Input
+            name='body'
+            defaultValue={post.body}
+            onChange={handleOnChange}
+          />
           <Button type='primary' onClick={handleOnEdit}>
             Save changes
           </Button>
@@ -59,8 +70,8 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
           </Button>
         </Card>
       ) : (
-        <Card title={title}>
-          <p>{body}</p>
+        <Card title={post.title}>
+          <p>{post.body}</p>
           <Button type='primary' danger onClick={handleOnDelete}>
             Delete post
           </Button>
