@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Space, Card, Button, Modal, Input } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { deletePost } from './postsSlice';
 
@@ -12,13 +13,22 @@ interface PostProps {
 
 const Post: FC<PostProps> = ({ id, title, body }) => {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const handleOnDelete = () => {
-    dispatch(deletePost(id));
+  const { confirm } = Modal;
 
-    setShowModal(false);
+  const handleOnDelete = () => {
+    confirm({
+      title: 'Are you sure you want to delete this post?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'This action cannot be undone!',
+      okText: 'Confirm',
+      onOk() {
+        return new Promise((resolve) => {
+          resolve(dispatch(deletePost(id)));
+        });
+      },
+    });
   };
 
   const handleOnEdit = () => {
@@ -51,7 +61,7 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
       ) : (
         <Card title={title}>
           <p>{body}</p>
-          <Button type='primary' danger onClick={() => setShowModal(true)}>
+          <Button type='primary' danger onClick={handleOnDelete}>
             Delete post
           </Button>
           <Button type='primary' onClick={() => setIsEdit(true)}>
@@ -59,16 +69,6 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
           </Button>
         </Card>
       )}
-      <Modal
-        title={'Are you sure you want to delete this post?'}
-        visible={showModal}
-        okText='Delete'
-        okType='danger'
-        onOk={handleOnDelete}
-        onCancel={() => setShowModal(false)}
-      >
-        <p>This action cannot be undone!</p>
-      </Modal>
     </Space>
   );
 };
