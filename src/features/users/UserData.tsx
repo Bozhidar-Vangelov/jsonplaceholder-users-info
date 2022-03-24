@@ -1,7 +1,9 @@
-import { FC, FormEventHandler, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
+import { isEqual } from 'lodash';
 
+import { RootState } from '../../app/store/configureStore';
 import { updateUsers } from './usersListSlice';
 import { UserInfo } from './types';
 import { updateUser } from '../userInfo/userInfoSlice';
@@ -12,10 +14,10 @@ interface UserProps {
 }
 
 const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
-  const [userData, setUserData] = useState(userInfo);
-  const [isChanged, setIsChanged] = useState(false);
-
   const dispatch = useDispatch();
+  const { loading } = useSelector((state: RootState) => state.user);
+
+  const [userData, setUserData] = useState(userInfo);
 
   const onFinish = (values: {}) => {
     console.log('Success:', values);
@@ -31,7 +33,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const handleOnChange = (event: any) => {
     let name: string = event.target.name;
     let value: string = event.target.value;
-    setIsChanged(true);
 
     setUserData((prevState) => ({
       ...prevState,
@@ -40,8 +41,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   };
 
   const handleAddressChange = (name: string, value: string) => {
-    setIsChanged(true);
-
     setUserData((prevState) => ({
       ...prevState,
       address: {
@@ -52,8 +51,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   };
 
   const handleAddressGeoChange = (name: string, value: string) => {
-    setIsChanged(true);
-
     setUserData((prevState) => ({
       ...prevState,
       address: {
@@ -67,8 +64,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   };
 
   const handleCompanyChange = (name: string, value: string) => {
-    setIsChanged(true);
-
     const companyName = name.split('-')[1];
 
     setUserData((prevState) => ({
@@ -80,61 +75,53 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
     }));
   };
 
+  const resetFormData = () => {
+    setUserData(userInfo);
+  };
+
+  console.log(userData);
+
   return (
     <Form
       name='user'
       wrapperCol={{ span: 6 }}
       labelCol={{ span: 3 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete='off'
       className={isOpen ? '' : 'hidden'}
     >
-      <Form.Item label='Name' name='name' initialValue={userInfo.name}>
-        <Input
-          id={`name-${userInfo.id}`}
-          name='name'
-          onChange={handleOnChange}
-        />
+      <Form.Item label='Name'>
+        <Input name='name' value={userData.name} onChange={handleOnChange} />
       </Form.Item>
       <Form.Item
         label='Username'
         name='username'
-        initialValue={userInfo.username}
+        initialValue={userData.username}
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Input
-          id={`username-${userInfo.id}`}
-          name='username'
-          onChange={handleOnChange}
-        />
+        <Input value={userData.username} onChange={handleOnChange} />
       </Form.Item>
       <Form.Item
         label='Email'
         name='email'
-        initialValue={userInfo.email}
+        initialValue={userData.email}
         rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Input
-          id={`email-${userInfo.id}`}
-          name='email'
-          onChange={handleOnChange}
-        />
+        <Input name='email' value={userData.email} onChange={handleOnChange} />
       </Form.Item>
-      <Form.Item label='Lat' name='lat' initialValue={userInfo.address.geo.lat}>
+      <Form.Item label='Lat'>
         <Input
-          id={`lat-${userInfo.id}`}
           name='lat'
+          value={userData.address.geo.lat}
           onChange={(event: any) =>
             handleAddressGeoChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
-      <Form.Item label='Lng' name='lng' initialValue={userInfo.address.geo.lng}>
+      <Form.Item label='Lng'>
         <Input
-          id={`lng-${userInfo.id}`}
           name='lng'
+          value={userData.address.geo.lng}
           onChange={(event: any) =>
             handleAddressGeoChange(event.target.name, event.target.value)
           }
@@ -143,12 +130,12 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
       <Form.Item
         label='Street'
         name='street'
-        initialValue={userInfo.address.street}
+        initialValue={userData.address.street}
         rules={[{ required: true, message: 'Please input your street!' }]}
       >
         <Input
-          id={`street-${userInfo.id}`}
           name='street'
+          value={userData.address.street}
           onChange={(event: any) =>
             handleAddressChange(event.target.name, event.target.value)
           }
@@ -157,12 +144,12 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
       <Form.Item
         label='Suite'
         name='suite'
-        initialValue={userInfo.address.suite}
+        initialValue={userData.address.suite}
         rules={[{ required: true, message: 'Please input your suite!' }]}
       >
         <Input
-          id={`suite-${userInfo.id}`}
           name='suite'
+          value={userData.address.suite}
           onChange={(event: any) =>
             handleAddressChange(event.target.name, event.target.value)
           }
@@ -171,78 +158,58 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
       <Form.Item
         label='City'
         name='city'
-        initialValue={userInfo.address.city}
+        initialValue={userData.address.city}
         rules={[{ required: true, message: 'Please input your city!' }]}
       >
         <Input
-          id={`city-${userInfo.id}`}
           name='city'
+          value={userData.address.city}
           onChange={(event: any) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
-      <Form.Item
-        label='Zipcode'
-        name='zipcode'
-        initialValue={userInfo.address.zipcode}
-      >
+      <Form.Item label='Zipcode'>
         <Input
-          id={`zipcode-${userInfo.id}`}
           name='zipcode'
+          value={userData.address.zipcode}
           onChange={(event: any) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
-      <Form.Item label='Phone' name='phone' initialValue={userInfo.phone}>
-        <Input
-          id={`phone-${userInfo.id}`}
-          name='phone'
-          onChange={handleOnChange}
-        />
+      <Form.Item label='Phone'>
+        <Input name='phone' value={userData.phone} onChange={handleOnChange} />
       </Form.Item>
-      <Form.Item label='Website' name='website' initialValue={userInfo.website}>
+      <Form.Item label='Website'>
         <Input
-          id={`website-${userInfo.id}`}
           name='website'
+          value={userData.website}
           onChange={handleOnChange}
         />
       </Form.Item>
-      <Form.Item
-        label='Company Name'
-        name='company-name'
-        initialValue={userInfo.company.name}
-      >
+      <Form.Item label='Company Name'>
         <Input
-          id={`company-name-${userInfo.id}`}
           name='company-name'
+          value={userData.company.name}
           onChange={(event: any) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
-      <Form.Item
-        label='Company Catch Phrase'
-        name='company-catchPhrase'
-        initialValue={userInfo.company.catchPhrase}
-      >
+      <Form.Item label='Company Catch Phrase'>
         <Input
-          id={`company-catchPhrase-${userInfo.id}`}
           name='company-catchPhrase'
+          value={userData.company.catchPhrase}
           onChange={(event: any) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
-      <Form.Item
-        label='Company Business'
-        name='company-bs'
-        initialValue={userInfo.company.bs}
-      >
+      <Form.Item label='Company Business'>
         <Input
-          id={`company-business-${userInfo.id}`}
           name='company-bs'
+          value={userData.company.bs}
           onChange={(event: any) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
@@ -250,18 +217,13 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 2 }}>
         <Button
-          disabled={isChanged ? false : true}
+          disabled={isEqual(userInfo, userData)}
           type='primary'
           htmlType='submit'
         >
           Save Changes
         </Button>
-        <Button
-          onClick={() => setIsChanged(false)}
-          type='primary'
-          danger
-          htmlType='reset'
-        >
+        <Button type='primary' danger onClick={resetFormData}>
           Reset
         </Button>
       </Form.Item>

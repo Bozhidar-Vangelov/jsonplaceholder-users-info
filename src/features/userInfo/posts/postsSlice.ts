@@ -15,35 +15,35 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
-    fetchPostsSuccess(post, action) {
-      post.loading = false;
-      post.allPostsInfo = action.payload;
-      post.error = '';
+    fetchPostsSuccess(state, action) {
+      state.loading = false;
+      state.allPostsInfo = action.payload;
+      state.error = '';
     },
-    fetchPostsFailure(post, action) {
-      post.loading = false;
-      post.error = action.payload;
+    fetchPostsFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
     },
-    deletePostSuccess(post, action) {
-      post.loading = false;
+    deletePostSuccess(state, action) {
+      state.loading = false;
 
-      post.allPostsInfo = post.allPostsInfo.filter(
+      state.allPostsInfo = state.allPostsInfo.filter(
         (post) => post.id !== action.payload
       );
     },
-    deletePostFailure(post, action) {
-      post.loading = false;
-      post.error = action.payload;
+    deletePostFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
     },
-    updatePostsStateSuccess(post, action) {
-      post.loading = false;
-      post.allPostsInfo = post.allPostsInfo.map((post) =>
+    updatePostsStateSuccess(state, action) {
+      state.loading = false;
+      state.allPostsInfo = state.allPostsInfo.map((post) =>
         post.id !== action.payload.id ? post : action.payload
       );
     },
-    updatePostsStateFailure(post, action) {
-      post.loading = false;
-      post.error = action.payload;
+    updatePostsStateFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
