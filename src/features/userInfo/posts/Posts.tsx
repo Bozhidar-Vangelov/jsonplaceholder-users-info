@@ -15,8 +15,12 @@ const Posts = () => {
     (state: RootState) => state.posts
   );
 
+  const userPosts = allPostsInfo.filter(
+    (post) => post.userId === Number(userId)
+  );
+
   useEffect(() => {
-    if (allPostsInfo.length) {
+    if (userPosts.length) {
       return;
     }
 
@@ -30,8 +34,14 @@ const Posts = () => {
 
   return (
     <>
-      {allPostsInfo.map((post) => (
-        <Post key={post.id} id={post.id} body={post.body} title={post.title} />
+      {userPosts.map((post) => (
+        <Post
+          key={post.id}
+          userId={post.userId}
+          id={post.id}
+          body={post.body}
+          title={post.title}
+        />
       ))}
     </>
   );

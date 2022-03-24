@@ -9,41 +9,41 @@ const initialState: Posts = {
   allPostsInfo: [],
 };
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+const BASE_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
-    fetchPostsSuccess(state, action) {
-      state.loading = false;
-      state.allPostsInfo = action.payload;
-      state.error = '';
+    fetchPostsSuccess(post, action) {
+      post.loading = false;
+      post.allPostsInfo = action.payload;
+      post.error = '';
     },
-    fetchPostsFailure(state, action) {
-      state.loading = false;
-      state.error = action.payload;
+    fetchPostsFailure(post, action) {
+      post.loading = false;
+      post.error = action.payload;
     },
-    deletePostSuccess(state, action) {
-      state.loading = false;
+    deletePostSuccess(post, action) {
+      post.loading = false;
 
-      state.allPostsInfo = state.allPostsInfo.filter(
-        (state) => state.id !== action.payload
+      post.allPostsInfo = post.allPostsInfo.filter(
+        (post) => post.id !== action.payload
       );
     },
-    deletePostFailure(state, action) {
-      state.loading = false;
-      state.error = action.payload;
+    deletePostFailure(post, action) {
+      post.loading = false;
+      post.error = action.payload;
     },
-    updatePostsStateSuccess(state, action) {
-      state.loading = false;
-      state.allPostsInfo = state.allPostsInfo.map((state) =>
-        state.id !== action.payload.id ? state : action.payload
+    updatePostsStateSuccess(post, action) {
+      post.loading = false;
+      post.allPostsInfo = post.allPostsInfo.map((post) =>
+        post.id !== action.payload.id ? post : action.payload
       );
     },
-    updatePostsStateFailure(state, action) {
-      state.loading = false;
-      state.error = action.payload;
+    updatePostsStateFailure(post, action) {
+      post.loading = false;
+      post.error = action.payload;
     },
   },
 });
@@ -62,7 +62,7 @@ const {
 export const fetchPosts =
   (userId: string | undefined) => async (dispatch: Dispatch) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/users/${userId}/posts`);
+      const { data } = await axios.get(BASE_URL);
 
       dispatch(fetchPostsSuccess(data));
     } catch (error) {
@@ -83,7 +83,7 @@ export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
 export const updatePosts =
   (postId: number, data: {}) => async (dispatch: Dispatch) => {
     try {
-      await axios.put(`${BASE_URL}/posts/${postId}`);
+      await axios.put(`${BASE_URL}/${postId}`);
 
       dispatch(updatePostsStateSuccess(data));
     } catch (error) {

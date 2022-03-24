@@ -6,15 +6,16 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { deletePost, updatePosts } from './postsSlice';
 
 interface PostProps {
+  userId: number;
   id: number;
   title: string;
   body: string;
 }
 
-const Post: FC<PostProps> = ({ id, title, body }) => {
+const Post: FC<PostProps> = ({ userId, id, title, body }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [post, setPost] = useState({ id, title, body });
+  const [post, setPost] = useState({ userId, id, title, body });
 
   const { confirm } = Modal;
 
@@ -34,6 +35,8 @@ const Post: FC<PostProps> = ({ id, title, body }) => {
 
   const handleOnEdit = () => {
     dispatch(updatePosts(id, post));
+
+    console.log(post);
 
     setIsEdit(!isEdit);
   };
