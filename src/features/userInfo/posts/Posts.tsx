@@ -24,7 +24,7 @@ const Posts = () => {
       return;
     }
 
-    dispatch(fetchPosts(userId));
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   if (error) {

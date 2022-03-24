@@ -59,20 +59,19 @@ const {
   updatePostsStateFailure,
 } = postsSlice.actions;
 
-export const fetchPosts =
-  (userId: string | undefined) => async (dispatch: Dispatch) => {
-    try {
-      const { data } = await axios.get(BASE_URL);
+export const fetchPosts = () => async (dispatch: Dispatch) => {
+  try {
+    const { data } = await axios.get(BASE_URL);
 
-      dispatch(fetchPostsSuccess(data));
-    } catch (error) {
-      dispatch(fetchPostsFailure(error));
-    }
-  };
+    dispatch(fetchPostsSuccess(data));
+  } catch (error) {
+    dispatch(fetchPostsFailure(error));
+  }
+};
 
 export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
   try {
-    await axios.delete(`${BASE_URL}/posts/${postId}`);
+    await axios.delete(`${BASE_URL}/${postId}`);
 
     dispatch(deletePostSuccess(postId));
   } catch (error) {
