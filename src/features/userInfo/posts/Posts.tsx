@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts } from './postsSlice';
@@ -30,6 +30,10 @@ const Posts = () => {
   if (error) {
     console.log(error);
     return <Empty description='Failed to load data'></Empty>;
+  }
+
+  if (loading) {
+    return <Spin size='large' />;
   }
 
   return (
