@@ -31,18 +31,15 @@ const UserInfo = () => {
   return (
     <Card
       loading={loading}
-      cover={
-        <img
-          style={{ width: 240 }}
-          alt='example'
-          src='https://joeschmoe.io/api/v1/random'
-        />
-      }
+      cover={<img alt='example' src='https://joeschmoe.io/api/v1/random' />}
+      className='user-posts'
     >
-      <UserData userInfo={userInfo} isOpen={true} />
       <Link to='/'>
-        <Button>See all users</Button>
+        <Button type='primary' className='user-posts-btn'>
+          Go back to all users
+        </Button>
       </Link>
+      <UserData userInfo={userInfo} isOpen={true} />
       <Posts />
     </Card>
   );
