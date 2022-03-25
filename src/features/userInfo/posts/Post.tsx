@@ -1,9 +1,10 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Space, Card, Button, Modal, Input } from 'antd';
+import { Space, Card, Button, Modal, Input, Form } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-import { deletePost, updatePosts } from './postsSlice';
+import { deletePost, updatePosts, createPost } from './postsSlice';
+import { PostInfo } from './types';
 
 interface PostProps {
   userId: number;
@@ -36,17 +37,17 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
   const handleOnEdit = () => {
     dispatch(updatePosts(id, post));
 
-    console.log(post);
-
     setIsEdit(!isEdit);
   };
 
   const handleOnChange = (e: any) => {
-    setPost({
-      ...post,
+    setPost((prevState) => ({
+      ...prevState,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
+
+  //Discard changes updates post
 
   return (
     <Space>

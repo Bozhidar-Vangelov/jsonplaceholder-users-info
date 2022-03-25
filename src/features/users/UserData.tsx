@@ -79,8 +79,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
     setUserData(userInfo);
   };
 
-  console.log(userData);
-
   return (
     <Form
       name='user'

@@ -45,6 +45,14 @@ const postsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    createPostSuccess(state, action) {
+      state.loading = false;
+      state.allPostsInfo.push(action.payload);
+    },
+    createPostFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -57,6 +65,8 @@ const {
   deletePostFailure,
   updatePostsStateSuccess,
   updatePostsStateFailure,
+  createPostSuccess,
+  createPostFailure,
 } = postsSlice.actions;
 
 export const fetchPosts = () => async (dispatch: Dispatch) => {
@@ -87,5 +97,17 @@ export const updatePosts =
       dispatch(updatePostsStateSuccess(data));
     } catch (error) {
       dispatch(updatePostsStateFailure);
+    }
+  };
+
+export const createPost =
+  (data: { userId: number; title: string; body: string }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      await axios.post(BASE_URL, data);
+
+      dispatch(createPostSuccess(data));
+    } catch (error) {
+      dispatch(createPostFailure);
     }
   };
