@@ -1,0 +1,60 @@
+$border: 3px solid white;
+$textColor: rgb(230, 230, 230);
+
+.create-post-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 750px;
+  width: 50%;
+  color: $textColor;
+  border-color: #157347;
+  background-color: #157347;
+}
+
+.create-post-btn:hover {
+  color: $textColor;
+  border-color: #1fa164;
+  background-color: #1fa164;
+}
+
+.posts {
+  border: $border;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 10px;
+  max-width: 1500px;
+  margin: 20px auto;
+
+  .post-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 730px;
+    height: 200px;
+
+    .post {
+      width: 730px;
+      height: 200px;
+
+      background-color: #494949;
+      color: $textColor;
+
+      .ant-card-head {
+        color: $textColor;
+      }
+
+      .post-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .edit-post-input {
+        color: $textColor;
+        background-color: #727272;
+      }
+    }
+  }
+}

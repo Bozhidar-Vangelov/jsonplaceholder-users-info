@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Empty, Spin, Button, Modal, Form, Input } from 'antd';
+import { Empty, Spin, Button, Modal, Form, Input, Space } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts, createPost } from './postsSlice';
@@ -68,7 +68,12 @@ const Posts = () => {
 
   return (
     <>
-      <Button onClick={() => setShowCreateModal(true)}>Create Post</Button>
+      <Button
+        className='create-post-btn'
+        onClick={() => setShowCreateModal(true)}
+      >
+        Create Post
+      </Button>
       <Modal
         visible={showCreateModal}
         title='Create Post'
@@ -103,15 +108,17 @@ const Posts = () => {
           </Form.Item>
         </Form>
       </Modal>
-      {userPosts.map((post) => (
-        <Post
-          key={post.id}
-          userId={post.userId}
-          id={post.id}
-          body={post.body}
-          title={post.title}
-        />
-      ))}
+      <Space className='posts'>
+        {userPosts.map((post) => (
+          <Post
+            key={post.id}
+            userId={post.userId}
+            id={post.id}
+            body={post.body}
+            title={post.title}
+          />
+        ))}
+      </Space>
     </>
   );
 };

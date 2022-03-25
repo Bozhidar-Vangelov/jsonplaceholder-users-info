@@ -47,17 +47,21 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
     }));
   };
 
+  console.log(post.title);
+
   //Discard changes updates post
 
   return (
-    <Space>
+    <Space className='post-container'>
       {isEdit ? (
         <Card
+          className='post'
           title={
             <Input
               name='title'
               defaultValue={post.title}
               onChange={handleOnChange}
+              className='edit-post-input'
             />
           }
         >
@@ -65,23 +69,28 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             name='body'
             defaultValue={post.body}
             onChange={handleOnChange}
+            className='edit-post-input'
           />
-          <Button type='primary' onClick={handleOnEdit}>
-            Save changes
-          </Button>
-          <Button type='primary' danger onClick={() => setIsEdit(false)}>
-            Discard changes
-          </Button>
+          <Space className='post-buttons'>
+            <Button type='primary' onClick={handleOnEdit}>
+              Save changes
+            </Button>
+            <Button type='primary' danger onClick={() => setIsEdit(false)}>
+              Discard changes
+            </Button>
+          </Space>
         </Card>
       ) : (
-        <Card title={post.title}>
+        <Card title={post.title} className='post'>
           <p>{post.body}</p>
-          <Button type='primary' danger onClick={handleOnDelete}>
-            Delete post
-          </Button>
-          <Button type='primary' onClick={() => setIsEdit(true)}>
-            Edit post
-          </Button>
+          <Space className='post-buttons'>
+            <Button type='primary' onClick={() => setIsEdit(true)}>
+              Edit post
+            </Button>
+            <Button type='primary' danger onClick={handleOnDelete}>
+              Delete post
+            </Button>
+          </Space>
         </Card>
       )}
     </Space>

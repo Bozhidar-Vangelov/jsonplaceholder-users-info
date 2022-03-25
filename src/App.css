@@ -1,6 +1,7 @@
 @import '~antd/dist/antd.css';
 @import '/src/features/users/styles/users.css';
 @import '/src/features/userInfo/styles/userInfo.css';
+@import '/src/features/userInfo/posts/styles/posts.css';
 
 .ant-empty {
   margin-top: 5em;
