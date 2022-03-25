@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+$background: linear-gradient(to right, #434343 0%, black 100%);
+$textColor: rgb(230, 230, 230);
+$font: 'Roboto', sans-serif;
+$border: 3px solid white;
+
+.user-list {
+  background: $background;
+  font-family: $font;
+
+  .user-list-item {
+    border: $border;
+    cursor: pointer;
+    padding: 10px;
+    h4 {
+      font-weight: bold;
+      color: $textColor;
+    }
+  }
+}
+
+.user-data {
+  border: $border;
+
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 10px;
+  max-width: 1500px;
+  margin: 20px auto;
+
+  .ant-form-item {
+    display: flex;
+    justify-content: center;
+    flex-basis: 50%;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .ant-form-item-label {
+      font-weight: bold;
+      padding: 8px;
+      letter-spacing: 0.09em;
+      flex: 1 0 120px;
+      max-width: 220px;
+
+      label {
+        color: $textColor;
+      }
+    }
+    input {
+      padding: 10px;
+      border: none;
+      background-color: #5a5353;
+      color: $textColor;
+    }
+  }
+
+  .user-data-buttons {
+    display: block;
+    width: 100%;
+    button {
+      display: block;
+      margin: auto;
+      width: 50%;
+      span {
+        color: white;
+      }
+    }
+
+    button:disabled {
+      background-color: #434343;
+      opacity: 30%;
+    }
+
+    .save-changes {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.user-posts-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 750px;
+  width: 50%;
+}

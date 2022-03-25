@@ -18,7 +18,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo }) => {
 
   return (
     <>
-      <List.Item key={userInfo.id} onClick={toggle}>
+      <List.Item key={userInfo.id} onClick={toggle} className='user-list-item'>
         <List.Item.Meta
           avatar={<Avatar src='https://joeschmoe.io/api/v1/random' />}
           title={userInfo.name}
@@ -26,10 +26,12 @@ const UserCard: FC<UserCardProps> = ({ userInfo }) => {
       </List.Item>
       {isOpen && (
         <>
-          <UserData isOpen={isOpen} userInfo={userInfo} />
           <Link to={`users/${userInfo.id}/posts`}>
-            <Button>See Posts</Button>
+            <Button type='primary' className='user-posts-btn'>
+              Go to user's posts
+            </Button>
           </Link>
+          <UserData isOpen={isOpen} userInfo={userInfo} />
         </>
       )}
     </>

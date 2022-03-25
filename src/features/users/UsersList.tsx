@@ -29,7 +29,7 @@ const UsersList = () => {
   return (
     <List
       dataSource={allUsersInfo}
-      bordered
+      className='user-list'
       loading={loading}
       renderItem={(user) => <UserCard userInfo={user} />}
     />

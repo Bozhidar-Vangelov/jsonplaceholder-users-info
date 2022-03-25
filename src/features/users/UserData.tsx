@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
 import { RootState } from '../../app/store/configureStore';
@@ -82,11 +82,9 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   return (
     <Form
       name='user'
-      wrapperCol={{ span: 6 }}
-      labelCol={{ span: 3 }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      className={isOpen ? '' : 'hidden'}
+      className={`${!isOpen && 'hidden'} user-data`}
     >
       <Form.Item label='Name'>
         <Input name='name' value={userData.name} onChange={handleOnChange} />
@@ -213,18 +211,19 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
           }
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ offset: 2 }}>
+      <Space className='user-data-buttons'>
         <Button
-          disabled={isEqual(userInfo, userData)}
           type='primary'
+          disabled={isEqual(userInfo, userData)}
           htmlType='submit'
+          className='save-changes'
         >
           Save Changes
         </Button>
         <Button type='primary' danger onClick={resetFormData}>
           Reset
         </Button>
-      </Form.Item>
+      </Space>
     </Form>
   );
 };
