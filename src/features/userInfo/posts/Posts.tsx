@@ -34,7 +34,7 @@ const Posts = () => {
     }
 
     dispatch(fetchPosts());
-  }, [dispatch]);
+  }, [userPosts, dispatch]);
 
   if (error) {
     console.log(error);
@@ -56,7 +56,6 @@ const Posts = () => {
           body,
         };
 
-        userPosts.unshift(newPost);
         dispatch(createPost(newPost));
         form.resetFields();
       })

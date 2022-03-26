@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, Empty } from 'antd';
 
-import { fetchUsers, resetUsersState, fetchUsersState } from './usersListSlice';
+import { fetchUsers, fetchUsersState } from './usersListSlice';
 import { RootState } from '../../app/store/configureStore';
 import UserCard from './UserCard';
 
@@ -19,7 +19,7 @@ const UsersList = () => {
     }
 
     dispatch(fetchUsers());
-  }, [dispatch]);
+  }, [dispatch, allUsersInfo]);
 
   if (error) {
     console.log(error);

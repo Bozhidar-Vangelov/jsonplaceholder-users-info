@@ -1,10 +1,9 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Space, Card, Button, Modal, Input, Form } from 'antd';
+import { Space, Card, Button, Modal, Input } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-import { deletePost, updatePosts, createPost } from './postsSlice';
-import { PostInfo } from './types';
+import { deletePost, updatePosts } from './postsSlice';
 
 interface PostProps {
   userId: number;
@@ -46,8 +45,6 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  console.log(post.title);
 
   //Discard changes updates post
 

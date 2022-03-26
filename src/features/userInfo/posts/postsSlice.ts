@@ -47,7 +47,7 @@ const postsSlice = createSlice({
     },
     createPostSuccess(state, action) {
       state.loading = false;
-      state.allPostsInfo.push(action.payload);
+      state.allPostsInfo.unshift(action.payload);
     },
     createPostFailure(state, action) {
       state.loading = false;

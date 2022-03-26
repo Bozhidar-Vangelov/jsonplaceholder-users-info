@@ -21,7 +21,7 @@ const UserInfo = () => {
     return () => {
       dispatch(resetUserState());
     };
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (error) {
     console.log(error);
