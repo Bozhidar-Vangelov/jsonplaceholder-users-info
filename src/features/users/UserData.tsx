@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
-import { RootState } from '../../app/store/configureStore';
 import { updateUsers } from './usersListSlice';
 import { UserInfo } from './types';
 import { updateUser } from '../userInfo/userInfoSlice';
@@ -15,7 +14,6 @@ interface UserProps {
 
 const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state: RootState) => state.user);
 
   const [userData, setUserData] = useState(userInfo);
 

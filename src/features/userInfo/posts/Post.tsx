@@ -33,9 +33,14 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
     });
   };
 
-  const handleOnEdit = () => {
+  const handleOnSave = () => {
     dispatch(updatePosts(id, post));
 
+    setIsEdit(!isEdit);
+  };
+
+  const handleOnDiscard = () => {
+    setPost({ userId, id, title, body });
     setIsEdit(!isEdit);
   };
 
@@ -45,8 +50,6 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  //Discard changes updates post
 
   return (
     <Space className='post-container'>
@@ -69,10 +72,10 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             className='edit-post-input'
           />
           <Space className='post-buttons'>
-            <Button type='primary' onClick={handleOnEdit}>
+            <Button type='primary' onClick={handleOnSave}>
               Save changes
             </Button>
-            <Button type='primary' danger onClick={() => setIsEdit(false)}>
+            <Button type='primary' danger onClick={handleOnDiscard}>
               Discard changes
             </Button>
           </Space>
