@@ -71,4 +71,45 @@
   color: #e6e6e6;
   background-color: #727272;
 }
+
+.ant-modal-content {
+  background: -webkit-gradient(linear, left top, right top, from(#434343), to(black));
+  background: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.ant-modal-content .ant-modal-header {
+  background: -webkit-gradient(linear, left top, right top, from(#434343), to(black));
+  background: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.ant-modal-content .ant-modal-header .ant-modal-title {
+  color: #e6e6e6;
+}
+
+.ant-modal-content .confirm-btn,
+.ant-modal-content .cancel-btn {
+  background: inherit;
+}
+
+.ant-modal-content .confirm-btn {
+  color: #157347;
+}
+
+.ant-modal-content .cancel-btn {
+  color: #e6e6e6;
+}
+
+.ant-modal-content .ant-modal-body .ant-modal-confirm-title,
+.ant-modal-content .ant-modal-body .ant-modal-confirm-content {
+  color: #e6e6e6;
+}
+
+.ant-modal-content .ant-modal-body .ant-form-item-required {
+  color: #e6e6e6;
+}
+
+.ant-modal-content .ant-modal-body .ant-input {
+  background: #727272;
+  color: #e6e6e6;
+}
 /*# sourceMappingURL=posts.css.map */

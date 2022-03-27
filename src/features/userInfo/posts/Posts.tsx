@@ -65,6 +65,8 @@ const Posts = () => {
       });
   };
 
+  //when a new post is crested, it can be edited, but not deleted
+
   return (
     <>
       <Button
@@ -76,7 +78,9 @@ const Posts = () => {
       <Modal
         visible={showCreateModal}
         title='Create Post'
-        okText='Create'
+        okText='Confirm'
+        okButtonProps={{ className: 'confirm-btn' }}
+        cancelButtonProps={{ className: 'cancel-btn' }}
         onOk={handleOnCreate}
         onCancel={() => setShowCreateModal(false)}
       >

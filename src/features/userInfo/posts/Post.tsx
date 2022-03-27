@@ -25,6 +25,9 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       icon: <ExclamationCircleOutlined />,
       content: 'This action cannot be undone!',
       okText: 'Confirm',
+      okType: 'danger',
+      okButtonProps: { className: 'confirm-btn' },
+      cancelButtonProps: { className: 'cancel-btn' },
       onOk() {
         return new Promise((resolve) => {
           resolve(dispatch(deletePost(id)));
