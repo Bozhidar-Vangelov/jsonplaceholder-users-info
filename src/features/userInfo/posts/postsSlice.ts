@@ -92,7 +92,7 @@ export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
 export const updatePosts =
   (postId: number, data: {}) => async (dispatch: Dispatch) => {
     try {
-      await axios.put(`${BASE_URL}ssss/${postId}`, data);
+      await axios.put(`${BASE_URL}/${postId}`, data);
 
       dispatch(updatePostsStateSuccess(data));
     } catch (error) {
