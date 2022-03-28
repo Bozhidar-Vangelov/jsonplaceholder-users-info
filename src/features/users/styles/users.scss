@@ -105,15 +105,23 @@ $border: 3px solid white;
   }
 }
 
-.notification {
+.notification-success {
   background-color: #157347;
-
-  .ant-notification-notice-message,
-  .ant-notification-notice-close {
-    color: $textColor;
-  }
 
   .anticon.ant-notification-notice-icon-info {
     color: #25c97c;
   }
+}
+
+.notification-error {
+  background-color: #ff4d4f;
+
+  .anticon.ant-notification-notice-icon-error {
+    color: $textColor;
+  }
+}
+
+.ant-notification-notice-message,
+.ant-notification-notice-close {
+  color: $textColor;
 }

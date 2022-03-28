@@ -22,7 +22,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
     notification.success({
       message: "User's data successfully saved!",
       placement: 'bottomRight',
-      className: 'notification',
+      className: 'notification-success',
     });
 
     dispatch(updateUsers(userInfo.id, userData));
@@ -31,6 +31,12 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+
+    notification.error({
+      message: "Failed to save user's data!",
+      placement: 'bottomRight',
+      className: 'notification-error',
+    });
   };
 
   const handleOnChange = (event: any) => {

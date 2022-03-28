@@ -119,16 +119,24 @@
   color: #e6e6e6;
 }
 
-.notification {
+.notification-success {
   background-color: #157347;
 }
 
-.notification .ant-notification-notice-message,
-.notification .ant-notification-notice-close {
+.notification-success .anticon.ant-notification-notice-icon-info {
+  color: #25c97c;
+}
+
+.notification-error {
+  background-color: #ff4d4f;
+}
+
+.notification-error .anticon.ant-notification-notice-icon-error {
   color: #e6e6e6;
 }
 
-.notification .anticon.ant-notification-notice-icon-info {
-  color: #25c97c;
+.ant-notification-notice-message,
+.ant-notification-notice-close {
+  color: #e6e6e6;
 }
 /*# sourceMappingURL=users.css.map */

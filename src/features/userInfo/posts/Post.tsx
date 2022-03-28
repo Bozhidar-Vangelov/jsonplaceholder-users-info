@@ -36,7 +36,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
           notification.success({
             message: 'Post sucessfully deleted!',
             placement: 'bottomRight',
-            className: 'notification',
+            className: 'notification-success',
           });
         });
       },
@@ -45,6 +45,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
 
   const handleOnSave = async () => {
     setConfirmLoading(true);
+
     await dispatch(updatePosts(id, post));
 
     setConfirmLoading(false);
@@ -53,7 +54,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
     notification.success({
       message: 'Post sucessfully edited!',
       placement: 'bottomRight',
-      className: 'notification',
+      className: 'notification-success',
     });
   };
 

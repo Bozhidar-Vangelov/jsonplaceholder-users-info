@@ -56,7 +56,7 @@ const Posts = () => {
   }
 
   const handleOnCreate = () => {
-    setConfirmLoading(!confirmLoading);
+    setConfirmLoading(true);
 
     form
       .validateFields()
@@ -69,18 +69,27 @@ const Posts = () => {
         };
         form.resetFields();
         await dispatch(createPost(newPost));
-        setConfirmLoading(!confirmLoading);
       })
       .then(() => {
         notification.success({
           message: 'Post successfully created!',
           placement: 'bottomRight',
-          className: 'notification',
+          className: 'notification-success',
         });
+
+        setConfirmLoading(false);
+        setShowCreateModal(false);
       })
-      .then(() => setShowCreateModal(false))
       .catch((info) => {
         console.log('Validate Failed:', info);
+
+        notification.error({
+          message: 'Failed to create post!',
+          placement: 'bottomRight',
+          className: 'notification-error',
+        });
+
+        setConfirmLoading(false);
       });
   };
 
