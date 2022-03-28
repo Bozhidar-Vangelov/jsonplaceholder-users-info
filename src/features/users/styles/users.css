@@ -104,4 +104,18 @@
   max-width: 750px;
   width: 50%;
 }
+
+.ant-page-header-heading {
+  border: 3px solid white;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.ant-page-header-heading .ant-page-header-heading-left {
+  margin: 0 auto;
+}
+
+.ant-page-header-heading .ant-page-header-heading-left .ant-page-header-heading-title {
+  color: #e6e6e6;
+}
 /*# sourceMappingURL=users.css.map */

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { List, Avatar, Button } from 'antd';
+import { List, Avatar, Button, PageHeader } from 'antd';
 
 import { UserInfo } from './types';
 import UserData from './UserData';
@@ -26,6 +26,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo }) => {
       </List.Item>
       {isOpen && (
         <>
+          <PageHeader title="User's info" />
           <Link to={`users/${userInfo.id}/posts`}>
             <Button type='primary' className='user-posts-btn'>
               Go to user's posts

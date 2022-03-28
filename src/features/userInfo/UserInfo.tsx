@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Button, Empty } from 'antd';
+import { Card, Button, Empty, PageHeader } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
 import { fetchUser, resetUserState } from './userInfoSlice';
@@ -38,8 +38,10 @@ const UserInfo = () => {
         <Button type='primary' className='user-posts-btn'>
           Go back to all users
         </Button>
+        <PageHeader title="User's info" />
       </Link>
       <UserData userInfo={userInfo} isOpen={true} />
+      <PageHeader title="User's posts" />
       <Posts />
     </Card>
   );

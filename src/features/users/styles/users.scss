@@ -90,3 +90,17 @@ $border: 3px solid white;
   max-width: 750px;
   width: 50%;
 }
+
+.ant-page-header-heading {
+  border: $border;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  .ant-page-header-heading-left {
+    margin: 0 auto;
+
+    .ant-page-header-heading-title {
+      color: $textColor;
+    }
+  }
+}
