@@ -82,7 +82,8 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
       name='user'
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      className={`${!isOpen && 'hidden'} user-data`}
+      hidden={!isOpen}
+      className={'user-data'}
     >
       <Form.Item label='Name'>
         <Input name='name' value={userData.name} onChange={handleOnChange} />

@@ -8,15 +8,19 @@ $border: 3px solid white;
 .user-list {
   background: $background;
   font-family: $font;
+  border: $border;
 
   .user-list-item {
-    border: $border;
     cursor: pointer;
     padding: 10px;
     h4 {
       font-weight: bold;
       color: $textColor;
     }
+  }
+
+  .ant-list-split .ant-list-item:last-child {
+    border-bottom: white;
   }
 }
 

@@ -3,10 +3,10 @@
   background: -webkit-gradient(linear, left top, right top, from(#434343), to(black));
   background: linear-gradient(to right, #434343 0%, black 100%);
   font-family: "Roboto", sans-serif;
+  border: 3px solid white;
 }
 
 .user-list .user-list-item {
-  border: 3px solid white;
   cursor: pointer;
   padding: 10px;
 }
@@ -14,6 +14,10 @@
 .user-list .user-list-item h4 {
   font-weight: bold;
   color: #e6e6e6;
+}
+
+.user-list .ant-list-split .ant-list-item:last-child {
+  border-bottom: white;
 }
 
 .user-data {
