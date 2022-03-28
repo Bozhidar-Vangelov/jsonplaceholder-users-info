@@ -118,4 +118,17 @@
 .ant-page-header-heading .ant-page-header-heading-left .ant-page-header-heading-title {
   color: #e6e6e6;
 }
+
+.notification {
+  background-color: #157347;
+}
+
+.notification .ant-notification-notice-message,
+.notification .ant-notification-notice-close {
+  color: #e6e6e6;
+}
+
+.notification .anticon.ant-notification-notice-icon-info {
+  color: #25c97c;
+}
 /*# sourceMappingURL=users.css.map */

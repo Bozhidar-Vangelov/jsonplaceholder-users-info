@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Empty, Spin, Button, Modal, Form, Input, Space } from 'antd';
+import {
+  Empty,
+  Spin,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Space,
+  notification,
+} from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts, createPost } from './postsSlice';
@@ -19,6 +28,7 @@ const Posts = () => {
   const { userId } = useParams();
   const [form] = Form.useForm();
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const { loading, error, allPostsInfo } = useSelector(
     (state: RootState) => state.posts
@@ -46,26 +56,33 @@ const Posts = () => {
   }
 
   const handleOnCreate = () => {
+    setConfirmLoading(!confirmLoading);
+
     form
       .validateFields()
-      .then(({ title, body }) => {
+      .then(async ({ title, body }) => {
         const newPost: NewPost = {
           userId: Number(userId),
           id: allPostsInfo.length + 1,
           title,
           body,
         };
-
-        dispatch(createPost(newPost));
         form.resetFields();
+        await dispatch(createPost(newPost));
+        setConfirmLoading(!confirmLoading);
+      })
+      .then(() => {
+        notification.success({
+          message: 'Post successfully created!',
+          placement: 'bottomRight',
+          className: 'notification',
+        });
       })
       .then(() => setShowCreateModal(false))
       .catch((info) => {
         console.log('Validate Failed:', info);
       });
   };
-
-  //when a new post is crested, it can be edited, but not deleted
 
   return (
     <>
@@ -83,6 +100,7 @@ const Posts = () => {
         cancelButtonProps={{ className: 'cancel-btn' }}
         onOk={handleOnCreate}
         onCancel={() => setShowCreateModal(false)}
+        confirmLoading={confirmLoading}
       >
         <Form form={form} id='create-post'>
           <Form.Item

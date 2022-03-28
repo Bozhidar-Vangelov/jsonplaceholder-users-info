@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Space, Card, Button, Modal, Input } from 'antd';
+import { Space, Card, Button, Modal, Input, notification } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { deletePost, updatePosts } from './postsSlice';
@@ -16,6 +16,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [post, setPost] = useState({ userId, id, title, body });
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const { confirm } = Modal;
 
@@ -31,15 +32,29 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       onOk() {
         return new Promise((resolve) => {
           resolve(dispatch(deletePost(id)));
+        }).then(() => {
+          notification.success({
+            message: 'Post sucessfully deleted!',
+            placement: 'bottomRight',
+            className: 'notification',
+          });
         });
       },
     });
   };
 
-  const handleOnSave = () => {
-    dispatch(updatePosts(id, post));
+  const handleOnSave = async () => {
+    setConfirmLoading(true);
+    await dispatch(updatePosts(id, post));
 
+    setConfirmLoading(false);
     setIsEdit(!isEdit);
+
+    notification.success({
+      message: 'Post sucessfully edited!',
+      placement: 'bottomRight',
+      className: 'notification',
+    });
   };
 
   const handleOnDiscard = () => {
@@ -75,7 +90,11 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             className='edit-post-input'
           />
           <Space className='post-buttons'>
-            <Button type='primary' onClick={handleOnSave}>
+            <Button
+              type='primary'
+              loading={confirmLoading}
+              onClick={handleOnSave}
+            >
               Save changes
             </Button>
             <Button type='primary' danger onClick={handleOnDiscard}>

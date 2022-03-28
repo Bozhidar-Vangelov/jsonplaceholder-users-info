@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Input, Button, Space } from 'antd';
+import { Form, Input, Button, Space, notification } from 'antd';
 import { isEqual } from 'lodash';
 
 import { updateUsers } from './usersListSlice';
@@ -14,11 +14,16 @@ interface UserProps {
 
 const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const dispatch = useDispatch();
-
   const [userData, setUserData] = useState(userInfo);
 
   const onFinish = (values: {}) => {
     console.log('Success:', values);
+
+    notification.success({
+      message: "User's data successfully saved!",
+      placement: 'bottomRight',
+      className: 'notification',
+    });
 
     dispatch(updateUsers(userInfo.id, userData));
     dispatch(updateUser(userInfo.id, userData));
@@ -29,8 +34,8 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   };
 
   const handleOnChange = (event: any) => {
-    let name: string = event.target.name;
-    let value: string = event.target.value;
+    const name: string = event.target.name;
+    const value: string = event.target.value;
 
     setUserData((prevState) => ({
       ...prevState,

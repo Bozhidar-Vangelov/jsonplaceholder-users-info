@@ -104,3 +104,16 @@ $border: 3px solid white;
     }
   }
 }
+
+.notification {
+  background-color: #157347;
+
+  .ant-notification-notice-message,
+  .ant-notification-notice-close {
+    color: $textColor;
+  }
+
+  .anticon.ant-notification-notice-icon-info {
+    color: #25c97c;
+  }
+}
