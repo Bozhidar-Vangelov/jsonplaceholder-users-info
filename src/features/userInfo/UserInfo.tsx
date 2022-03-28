@@ -34,12 +34,10 @@ const UserInfo = () => {
       cover={<img alt='example' src='https://joeschmoe.io/api/v1/random' />}
       className='user-posts'
     >
-      <Link to='/'>
-        <Button type='primary' className='user-posts-btn'>
-          Go back to all users
-        </Button>
-        <PageHeader title="User's info" />
-      </Link>
+      <Button type='primary' className='user-posts-btn'>
+        <Link to='/'>Go back to all users</Link>
+      </Button>
+      <PageHeader title="User's info" />
       <UserData userInfo={userInfo} isOpen={true} />
       <PageHeader title="User's posts" />
       <Posts />

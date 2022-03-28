@@ -27,11 +27,9 @@ const UserCard: FC<UserCardProps> = ({ userInfo }) => {
       {isOpen && (
         <>
           <PageHeader title="User's info" />
-          <Link to={`users/${userInfo.id}/posts`}>
-            <Button type='primary' className='user-posts-btn'>
-              Go to user's posts
-            </Button>
-          </Link>
+          <Button type='primary' className='user-posts-btn'>
+            <Link to={`users/${userInfo.id}/posts`}>Go to user's posts</Link>
+          </Button>
           <UserData isOpen={isOpen} userInfo={userInfo} />
         </>
       )}
