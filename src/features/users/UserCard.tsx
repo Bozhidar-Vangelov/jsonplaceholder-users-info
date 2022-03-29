@@ -20,7 +20,7 @@ const UserCard: FC<UserCardProps> = ({ userInfo }) => {
     <>
       <List.Item key={userInfo.id} onClick={toggle} className='user-list-item'>
         <List.Item.Meta
-          avatar={<Avatar src='https://joeschmoe.io/api/v1/random' />}
+          avatar={<Avatar src={`https://joeschmoe.io/api/v1/${userInfo.id}`} />}
           title={userInfo.name}
         />
       </List.Item>

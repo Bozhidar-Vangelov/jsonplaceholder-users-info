@@ -16,17 +16,17 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(userInfo);
 
-  const onFinish = (values: {}) => {
+  const onFinish = async (values: {}) => {
     console.log('Success:', values);
+
+    await dispatch(updateUsers(userInfo.id, userData));
+    await dispatch(updateUser(userInfo.id, userData));
 
     notification.success({
       message: "User's data successfully saved!",
       placement: 'bottomRight',
       className: 'notification-success',
     });
-
-    dispatch(updateUsers(userInfo.id, userData));
-    dispatch(updateUser(userInfo.id, userData));
   };
 
   const onFinishFailed = (errorInfo: any) => {

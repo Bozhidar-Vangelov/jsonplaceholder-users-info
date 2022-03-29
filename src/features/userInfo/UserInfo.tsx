@@ -31,7 +31,9 @@ const UserInfo = () => {
   return (
     <Card
       loading={loading}
-      cover={<img alt='example' src='https://joeschmoe.io/api/v1/random' />}
+      cover={
+        <img alt='example' src={`https://joeschmoe.io/api/v1/${userInfo.id}`} />
+      }
       className='user-posts'
     >
       <Button type='primary' className='user-posts-btn'>
