@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 import { Card, Button, Empty, PageHeader } from 'antd';
 
 import { RootState } from '../../app/store/configureStore';
@@ -11,7 +12,7 @@ import Posts from './posts/Posts';
 const UserInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { loading, error, userInfo } = useSelector(
+  const { error, userInfo, hasFetched } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -23,14 +24,13 @@ const UserInfo = () => {
     };
   }, [dispatch, userId]);
 
-  if (error) {
-    console.log(error);
+  if (error && isEmpty(userInfo)) {
     return <Empty description='Failed to load data' />;
   }
 
   return (
     <Card
-      loading={loading}
+      loading={!hasFetched}
       cover={
         <img alt='example' src={`https://joeschmoe.io/api/v1/${userInfo.id}`} />
       }

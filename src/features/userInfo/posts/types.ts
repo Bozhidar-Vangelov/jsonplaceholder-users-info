@@ -1,7 +1,8 @@
-export interface Posts {
+export interface PostsState {
   loading: boolean;
-  error: string;
+  error: null | string;
   allPostsInfo: PostInfo[];
+  hasFetched: boolean;
 }
 
 export interface PostInfo {

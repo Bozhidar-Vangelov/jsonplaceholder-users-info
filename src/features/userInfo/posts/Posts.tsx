@@ -1,16 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {
-  Empty,
-  Spin,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Space,
-  notification,
-} from 'antd';
+import { isEmpty } from 'lodash';
+import { Empty, Spin, Button, Modal, Form, Input, Space } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts, createPost } from './postsSlice';
@@ -28,7 +20,7 @@ const Posts = () => {
   const { userId } = useParams();
   const [form] = Form.useForm();
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false); // remove
 
   const { loading, error, allPostsInfo } = useSelector(
     (state: RootState) => state.posts
@@ -39,16 +31,16 @@ const Posts = () => {
   );
 
   useEffect(() => {
-    if (userPosts.length) {
+    // do not refetch data, as the API is not saving it
+    if (!isEmpty(userPosts)) {
       return;
     }
 
     dispatch(fetchPosts());
   }, [userPosts, dispatch]);
 
-  if (error) {
-    console.log(error);
-    return <Empty description='Failed to load data'></Empty>;
+  if (error && isEmpty(userPosts)) {
+    return <Empty description='Failed to load data' />;
   }
 
   if (loading) {
@@ -56,41 +48,24 @@ const Posts = () => {
   }
 
   const handleOnCreate = () => {
+    //couldn't handle loading state
     setConfirmLoading(true);
 
-    form
-      .validateFields()
-      .then(async ({ title, body }) => {
-        const newPost: NewPost = {
-          userId: Number(userId),
-          id: allPostsInfo.length + 1,
-          title,
-          body,
-        };
-        form.resetFields();
-        await dispatch(createPost(newPost));
-      })
-      .then(() => {
-        notification.success({
-          message: 'Post successfully created!',
-          placement: 'bottomRight',
-          className: 'notification-success',
-        });
+    form.validateFields().then(({ title, body }) => {
+      const newPost: NewPost = {
+        userId: Number(userId),
+        id: allPostsInfo.length + 1,
+        title,
+        body,
+      };
 
-        setConfirmLoading(false);
-        setShowCreateModal(false);
-      })
-      .catch((info) => {
-        console.log('Validate Failed:', info);
+      dispatch(createPost(newPost));
 
-        notification.error({
-          message: 'Failed to create post!',
-          placement: 'bottomRight',
-          className: 'notification-error',
-        });
+      setConfirmLoading(false);
+      setShowCreateModal(false);
 
-        setConfirmLoading(false);
-      });
+      form.resetFields();
+    });
   };
 
   return (

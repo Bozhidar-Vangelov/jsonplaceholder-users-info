@@ -1,37 +1,49 @@
-import { createSlice, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { Users, UserInfo } from './types';
+import { BASE_URL } from '../../app/config';
+import { UsersState, UserInfo } from './types';
 
-const initialState: Users = {
-  loading: true,
-  error: '',
+const initialState: UsersState = {
+  loading: false,
+  error: null,
+  hasFetched: false,
   allUsersInfo: [],
 };
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com/users';
+const USERS_URL = `${BASE_URL}/users`;
 
 const usersListSlice = createSlice({
   name: 'users',
   initialState: initialState,
   reducers: {
-    fetchUsersSuccess(state, action) {
-      state.loading = false;
-      state.allUsersInfo = action.payload;
-      state.error = '';
+    fetchUsersInit(state) {
+      state.loading = true;
+      state.hasFetched = false;
+      state.error = null;
     },
-    fetchUsersFailure(state, action) {
+    fetchUsersSuccess(state, action: PayloadAction<UserInfo[]>) {
+      state.loading = false;
+      state.hasFetched = true;
+      state.allUsersInfo = action.payload;
+      state.error = null;
+    },
+    fetchUsersFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
     },
     resetUsersState: () => initialState,
-    updateUsersState(state, action) {
+    updateUsersInit(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    updateUsersSuccess(state, action: PayloadAction<UserInfo>) {
       state.loading = false;
-      state.allUsersInfo = state.allUsersInfo.map((state) =>
-        state.id !== action.payload.id ? state : action.payload
+      state.allUsersInfo = state.allUsersInfo.map((userInfo) =>
+        userInfo.id !== action.payload.id ? userInfo : action.payload
       );
     },
-    fetchUsersState: (state) => {
+    updateUsersFailure(state) {
       state.loading = false;
     },
   },
@@ -39,27 +51,35 @@ const usersListSlice = createSlice({
 
 export const { reducer: usersReducer } = usersListSlice;
 
-const { fetchUsersSuccess, fetchUsersFailure, updateUsersState } =
-  usersListSlice.actions;
-export const { resetUsersState, fetchUsersState } = usersListSlice.actions;
+const {
+  fetchUsersInit,
+  fetchUsersSuccess,
+  fetchUsersFailure,
+  updateUsersSuccess,
+  updateUsersFailure,
+} = usersListSlice.actions;
+
+export const { resetUsersState } = usersListSlice.actions;
+// it is not used, because the data shouldn't be reset due to the API not saving it
 
 export const fetchUsers = () => async (dispatch: Dispatch) => {
-  try {
-    const { data } = await axios.get(BASE_URL);
+  dispatch(fetchUsersInit());
 
+  try {
+    const { data } = await axios.get(USERS_URL);
     dispatch(fetchUsersSuccess(data));
-  } catch (error) {
+  } catch (error: any) {
     dispatch(fetchUsersFailure(error));
   }
 };
 
 export const updateUsers =
-  (userId: number, data: {}) => async (dispatch: Dispatch) => {
+  (userId: number, userData: UserInfo) => async (dispatch: Dispatch) => {
     try {
-      await axios.put(`${BASE_URL}/${userId}`, data);
+      await axios.put(`${USERS_URL}/${userId}`, userData);
 
-      dispatch(updateUsersState(data));
+      dispatch(updateUsersSuccess(userData));
     } catch (error) {
-      console.log(error);
+      dispatch(updateUsersFailure());
     }
   };

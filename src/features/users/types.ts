@@ -1,6 +1,7 @@
-export interface Users {
+export interface UsersState {
   loading: boolean;
-  error: string;
+  error: null | string;
+  hasFetched: boolean;
   allUsersInfo: UserInfo[];
 }
 

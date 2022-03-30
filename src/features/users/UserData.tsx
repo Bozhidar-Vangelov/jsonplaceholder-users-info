@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, Input, Button, Space, notification } from 'antd';
+import { FC, useState, ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
 import { updateUsers } from './usersListSlice';
@@ -16,33 +16,13 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(userInfo);
 
-  const onFinish = async (values: {}) => {
-    console.log('Success:', values);
-
-    await dispatch(updateUsers(userInfo.id, userData));
-    await dispatch(updateUser(userInfo.id, userData));
-
-    notification.success({
-      message: "User's data successfully saved!",
-      placement: 'bottomRight',
-      className: 'notification-success',
-    });
+  const onFinish = () => {
+    //updates both allUsersInfo and userInfo in store, as the API is not saving the data
+    dispatch(updateUsers(userInfo.id, userData));
+    dispatch(updateUser(userInfo.id, userData));
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-
-    notification.error({
-      message: "Failed to save user's data!",
-      placement: 'bottomRight',
-      className: 'notification-error',
-    });
-  };
-
-  const handleOnChange = (event: any) => {
-    const name: string = event.target.name;
-    const value: string = event.target.value;
-
+  const handleOnChange = (name: string, value: string) => {
     setUserData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -92,12 +72,17 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
     <Form
       name='user'
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       hidden={!isOpen}
       className={'user-data'}
     >
       <Form.Item label='Name'>
-        <Input name='name' value={userData.name} onChange={handleOnChange} />
+        <Input
+          name='name'
+          value={userData.name}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleOnChange(event.target.name, event.target.value)
+          }
+        />
       </Form.Item>
       <Form.Item
         label='Username'
@@ -105,7 +90,12 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         initialValue={userData.username}
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Input value={userData.username} onChange={handleOnChange} />
+        <Input
+          value={userData.username}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleOnChange(event.target.name, event.target.value)
+          }
+        />
       </Form.Item>
       <Form.Item
         label='Email'
@@ -113,13 +103,19 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         initialValue={userData.email}
         rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Input name='email' value={userData.email} onChange={handleOnChange} />
+        <Input
+          name='email'
+          value={userData.email}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleOnChange(event.target.name, event.target.value)
+          }
+        />
       </Form.Item>
       <Form.Item label='Lat'>
         <Input
           name='lat'
           value={userData.address.geo.lat}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressGeoChange(event.target.name, event.target.value)
           }
         />
@@ -128,7 +124,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='lng'
           value={userData.address.geo.lng}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressGeoChange(event.target.name, event.target.value)
           }
         />
@@ -142,7 +138,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='street'
           value={userData.address.street}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
@@ -156,7 +152,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='suite'
           value={userData.address.suite}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
@@ -170,7 +166,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='city'
           value={userData.address.city}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
@@ -179,26 +175,34 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='zipcode'
           value={userData.address.zipcode}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleAddressChange(event.target.name, event.target.value)
           }
         />
       </Form.Item>
       <Form.Item label='Phone'>
-        <Input name='phone' value={userData.phone} onChange={handleOnChange} />
+        <Input
+          name='phone'
+          value={userData.phone}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleOnChange(event.target.name, event.target.value)
+          }
+        />
       </Form.Item>
       <Form.Item label='Website'>
         <Input
           name='website'
           value={userData.website}
-          onChange={handleOnChange}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleOnChange(event.target.name, event.target.value)
+          }
         />
       </Form.Item>
       <Form.Item label='Company Name'>
         <Input
           name='company-name'
           value={userData.company.name}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
         />
@@ -207,7 +211,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='company-catchPhrase'
           value={userData.company.catchPhrase}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
         />
@@ -216,7 +220,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <Input
           name='company-bs'
           value={userData.company.bs}
-          onChange={(event: any) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleCompanyChange(event.target.name, event.target.value)
           }
         />

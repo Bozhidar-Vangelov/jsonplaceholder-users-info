@@ -1,7 +1,8 @@
-export interface User {
+export interface UserState {
   loading: boolean;
-  error: string;
+  error: string | null;
   userInfo: UserInfo;
+  hasFetched: boolean;
 }
 
 export interface UserInfo {

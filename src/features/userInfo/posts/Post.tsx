@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { Space, Card, Button, Modal, Input, notification } from 'antd';
+import { Space, Card, Button, Modal, Input } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { deletePost, updatePosts } from './postsSlice';
@@ -13,9 +13,10 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ userId, id, title, body }) => {
+  const postInfo = { userId, id, title, body };
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [post, setPost] = useState({ userId, id, title, body });
+  const [post, setPost] = useState(postInfo);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const { confirm } = Modal;
@@ -29,44 +30,35 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       okType: 'danger',
       okButtonProps: { className: 'confirm-btn' },
       cancelButtonProps: { className: 'cancel-btn' },
-      onOk() {
+      //couldn't handle loading state
+      onOk: async () => {
         return new Promise((resolve) => {
           resolve(dispatch(deletePost(id)));
-        }).then(() => {
-          notification.success({
-            message: 'Post sucessfully deleted!',
-            placement: 'bottomRight',
-            className: 'notification-success',
-          });
-        });
+        }).then(() => {});
       },
     });
   };
 
-  const handleOnSave = async () => {
+  const handleOnSave = () => {
+    //couldn't handle loading state
     setConfirmLoading(true);
 
-    await dispatch(updatePosts(id, post));
+    //post is updated on API error
+    dispatch(updatePosts(id, post));
 
     setConfirmLoading(false);
     setIsEdit(!isEdit);
-
-    notification.success({
-      message: 'Post sucessfully edited!',
-      placement: 'bottomRight',
-      className: 'notification-success',
-    });
   };
 
   const handleOnDiscard = () => {
-    setPost({ userId, id, title, body });
+    setPost(postInfo);
     setIsEdit(!isEdit);
   };
 
-  const handleOnChange = (e: any) => {
+  const handleOnChange = (name: string, value: string) => {
     setPost((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -79,7 +71,9 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             <Input
               name='title'
               defaultValue={post.title}
-              onChange={handleOnChange}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleOnChange(event.target.name, event.target.value)
+              }
               className='edit-post-input'
             />
           }
@@ -87,7 +81,9 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
           <Input
             name='body'
             defaultValue={post.body}
-            onChange={handleOnChange}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleOnChange(event.target.name, event.target.value)
+            }
             className='edit-post-input'
           />
           <Space className='post-buttons'>
