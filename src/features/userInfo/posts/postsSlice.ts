@@ -3,12 +3,14 @@ import axios from 'axios';
 import { notification } from 'antd';
 
 import { PostsState, PostInfo } from './types';
+import { RootState } from '../../../app/store/configureStore';
 
 const initialState: PostsState = {
   loading: false,
   error: null,
   allPostsInfo: [],
   hasFetched: false,
+  postLoading: false,
 };
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com/posts';
@@ -32,32 +34,50 @@ const postsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    deletePostsInit(state) {
+      state.postLoading = true;
+      state.error = null;
+    },
     deletePostSuccess(state, action: PayloadAction<number>) {
       state.loading = false;
+      state.postLoading = false;
       state.allPostsInfo = state.allPostsInfo.filter(
         (post) => post.id !== action.payload
       );
     },
     deletePostFailure(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.postLoading = false;
       state.error = action.payload;
+    },
+    updatePostsInit(state) {
+      state.postLoading = true;
+      state.error = null;
     },
     updatePostsSuccess(state, action: PayloadAction<PostInfo>) {
       state.loading = false;
+      state.postLoading = false;
       state.allPostsInfo = state.allPostsInfo.map((post) =>
         post.id !== action.payload.id ? post : action.payload
       );
     },
     updatePostsFailure(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.postLoading = false;
       state.error = action.payload;
+    },
+    createPostInit(state) {
+      state.postLoading = true;
+      state.error = null;
     },
     createPostSuccess(state, action: PayloadAction<PostInfo>) {
       state.loading = false;
+      state.postLoading = false;
       state.allPostsInfo.unshift(action.payload);
     },
     createPostFailure(state, action: PayloadAction<string>) {
       state.loading = false;
+      state.postLoading = false;
       state.error = action.payload;
     },
   },
@@ -69,13 +89,18 @@ const {
   fetchPostsInit,
   fetchPostsSuccess,
   fetchPostsFailure,
+  deletePostsInit,
   deletePostSuccess,
   deletePostFailure,
+  updatePostsInit,
   updatePostsSuccess,
   updatePostsFailure,
+  createPostInit,
   createPostSuccess,
   createPostFailure,
 } = postsSlice.actions;
+
+export const postsSelector = (state: RootState) => state.posts;
 
 export const fetchPosts = () => async (dispatch: Dispatch) => {
   dispatch(fetchPostsInit());
@@ -90,6 +115,7 @@ export const fetchPosts = () => async (dispatch: Dispatch) => {
 };
 
 export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
+  dispatch(deletePostsInit());
   try {
     await axios.delete(`${BASE_URL}/${postId}/`);
 
@@ -100,8 +126,8 @@ export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
       placement: 'bottomRight',
       className: 'notification-success',
     });
-  } catch (error: any) {
-    dispatch(deletePostFailure(error));
+  } catch (error) {
+    dispatch(deletePostFailure((error as Error).message));
     notification.error({
       message: 'Failed to delete the post!',
       placement: 'bottomRight',
@@ -111,7 +137,10 @@ export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
 };
 
 export const updatePosts =
-  (postId: number, data: PostInfo) => async (dispatch: Dispatch) => {
+  (postId: number, data: PostInfo, onFailureCallback: () => void) =>
+  async (dispatch: Dispatch) => {
+    dispatch(updatePostsInit());
+
     try {
       await axios.put(`${BASE_URL}/${postId}`, data);
 
@@ -122,9 +151,9 @@ export const updatePosts =
         placement: 'bottomRight',
         className: 'notification-success',
       });
-    } catch (error: any) {
-      dispatch(updatePostsFailure(error));
-
+    } catch (error) {
+      dispatch(updatePostsFailure((error as Error).message));
+      onFailureCallback();
       notification.error({
         message: 'Failed to update the post!',
         placement: 'bottomRight',
@@ -134,6 +163,8 @@ export const updatePosts =
   };
 
 export const createPost = (data: PostInfo) => async (dispatch: Dispatch) => {
+  dispatch(createPostInit());
+
   try {
     await axios.post(BASE_URL, data);
 
@@ -144,8 +175,8 @@ export const createPost = (data: PostInfo) => async (dispatch: Dispatch) => {
       placement: 'bottomRight',
       className: 'notification-success',
     });
-  } catch (error: any) {
-    dispatch(createPostFailure(error));
+  } catch (error) {
+    dispatch(createPostFailure((error as Error).message));
 
     notification.error({
       message: 'Failed to create the post!',

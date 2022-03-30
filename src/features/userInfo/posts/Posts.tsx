@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { Empty, Spin, Button, Modal, Form, Input, Space } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
-import { fetchPosts, createPost } from './postsSlice';
+import { fetchPosts, createPost, postsSelector } from './postsSlice';
 import Post from './Post';
 
 interface NewPost {
@@ -20,11 +20,9 @@ const Posts = () => {
   const { userId } = useParams();
   const [form] = Form.useForm();
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false); // remove
 
-  const { loading, error, allPostsInfo } = useSelector(
-    (state: RootState) => state.posts
-  );
+  const { loading, error, allPostsInfo, postLoading } =
+    useSelector(postsSelector);
 
   const userPosts = allPostsInfo.filter(
     (post) => post.userId === Number(userId)
@@ -48,9 +46,6 @@ const Posts = () => {
   }
 
   const handleOnCreate = () => {
-    //couldn't handle loading state
-    setConfirmLoading(true);
-
     form.validateFields().then(({ title, body }) => {
       const newPost: NewPost = {
         userId: Number(userId),
@@ -61,9 +56,7 @@ const Posts = () => {
 
       dispatch(createPost(newPost));
 
-      setConfirmLoading(false);
       setShowCreateModal(false);
-
       form.resetFields();
     });
   };
@@ -84,7 +77,6 @@ const Posts = () => {
         cancelButtonProps={{ className: 'cancel-btn' }}
         onOk={handleOnCreate}
         onCancel={() => setShowCreateModal(false)}
-        confirmLoading={confirmLoading}
       >
         <Form form={form} id='create-post'>
           <Form.Item
@@ -114,15 +106,17 @@ const Posts = () => {
         </Form>
       </Modal>
       <Space className='posts'>
-        {userPosts.map((post) => (
-          <Post
-            key={post.id}
-            userId={post.userId}
-            id={post.id}
-            body={post.body}
-            title={post.title}
-          />
-        ))}
+        <Spin tip='Loading...' spinning={postLoading}>
+          {userPosts.map((post) => (
+            <Post
+              key={post.id}
+              userId={post.userId}
+              id={post.id}
+              body={post.body}
+              title={post.title}
+            />
+          ))}
+        </Spin>
       </Space>
     </>
   );

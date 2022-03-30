@@ -1,8 +1,9 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import { Space, Card, Button, Modal, Input } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Space, Card, Button, Modal, Input, Spin } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+import { RootState } from '../../../app/store/configureStore';
 import { deletePost, updatePosts } from './postsSlice';
 
 interface PostProps {
@@ -17,7 +18,6 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [post, setPost] = useState(postInfo);
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const { confirm } = Modal;
 
@@ -30,23 +30,12 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       okType: 'danger',
       okButtonProps: { className: 'confirm-btn' },
       cancelButtonProps: { className: 'cancel-btn' },
-      //couldn't handle loading state
-      onOk: async () => {
-        return new Promise((resolve) => {
-          resolve(dispatch(deletePost(id)));
-        }).then(() => {});
-      },
+      onOk: () => dispatch(deletePost(id)),
     });
   };
 
   const handleOnSave = () => {
-    //couldn't handle loading state
-    setConfirmLoading(true);
-
-    //post is updated on API error
-    dispatch(updatePosts(id, post));
-
-    setConfirmLoading(false);
+    dispatch(updatePosts(id, post, handleOnDiscard));
     setIsEdit(!isEdit);
   };
 
@@ -87,11 +76,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             className='edit-post-input'
           />
           <Space className='post-buttons'>
-            <Button
-              type='primary'
-              loading={confirmLoading}
-              onClick={handleOnSave}
-            >
+            <Button type='primary' onClick={handleOnSave}>
               Save changes
             </Button>
             <Button type='primary' danger onClick={handleOnDiscard}>

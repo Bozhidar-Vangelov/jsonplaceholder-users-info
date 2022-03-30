@@ -3,6 +3,7 @@ export interface PostsState {
   error: null | string;
   allPostsInfo: PostInfo[];
   hasFetched: boolean;
+  postLoading: boolean;
 }
 
 export interface PostInfo {
