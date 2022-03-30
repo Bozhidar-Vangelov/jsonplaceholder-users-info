@@ -1,127 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-$background: linear-gradient(to right, #434343 0%, black 100%);
-$textColor: rgb(230, 230, 230);
-$font: 'Roboto', sans-serif;
-$border: 3px solid white;
+// $background: linear-gradient(to right, #434343 0%, black 100%);
+// $textColor: rgb(230, 230, 230);
+// $font: 'Roboto', sans-serif;
+// $border: 3px solid white;
 
-.user-list {
-  background: $background;
-  font-family: $font;
-  border: $border;
+// .user-list {
+//   background: $background;
+//   font-family: $font;
+//   border: $border;
 
-  .user-list-item {
-    cursor: pointer;
-    padding: 10px;
-    h4 {
-      font-weight: bold;
-      color: $textColor;
-    }
-  }
+//   .user-list-item {
+//     cursor: pointer;
+//     padding: 10px;
+//     h4 {
+//       font-weight: bold;
+//       color: $textColor;
+//     }
+//   }
 
-  .ant-list-split .ant-list-item:last-child {
-    border-bottom: white;
-  }
+//   .ant-list-split .ant-list-item:last-child {
+//     border-bottom: white;
+//   }
+// }
+
+// .user-data {
+//   border: $border;
+
+//   display: flex;
+//   flex-wrap: wrap;
+//   list-style-type: none;
+//   padding: 10px;
+//   max-width: 1500px;
+//   margin: 20px auto;
+
+//   .ant-form-item {
+//     display: flex;
+//     justify-content: center;
+//     flex-basis: 50%;
+//     align-items: center;
+//     margin-bottom: 20px;
+
+//     .ant-form-item-label {
+//       font-weight: bold;
+//       padding: 8px;
+//       letter-spacing: 0.09em;
+//       flex: 1 0 120px;
+//       max-width: 220px;
+
+//       label {
+//         color: $textColor;
+//       }
+//     }
+//     input {
+//       padding: 10px;
+//       border: none;
+//       background-color: #5a5353;
+//       color: $textColor;
+//     }
+//   }
+
+//   .user-data-buttons {
+//     display: block;
+//     width: 100%;
+//     button {
+//       display: block;
+//       margin: auto;
+//       width: 50%;
+//       span {
+//         color: white;
+//       }
+//     }
+
+//     button:disabled {
+//       background-color: #434343;
+//       opacity: 30%;
+//     }
+
+//     .save-changes {
+//       margin-bottom: 10px;
+//     }
+//   }
+// }
+
+// .user-posts-btn {
+//   display: flex;
+//   justify-content: center;
+//   margin: 20px auto;
+//   max-width: 750px;
+//   width: 50%;
+// }
+
+// .ant-page-header-heading {
+//   border: $border;
+//   max-width: 1500px;
+//   margin: 0 auto;
+
+//   .ant-page-header-heading-left {
+//     margin: 0 auto;
+
+//     .ant-page-header-heading-title {
+//       color: $textColor;
+//     }
+//   }
+// }
+
+// .notification-success {
+//   background-color: #157347;
+
+//   .anticon.ant-notification-notice-icon-info {
+//     color: #25c97c;
+//   }
+// }
+
+// .notification-error {
+//   background-color: #ff4d4f;
+
+//   .anticon.ant-notification-notice-icon-error {
+//     color: $textColor;
+//   }
+// }
+
+// .ant-notification-notice-message,
+// .ant-notification-notice-close {
+//   color: $textColor;
+// }
+
+@mixin button {
+  background-color: #5bc0de;
+  color: #1f5356;
+  border: none;
+  font-weight: bold;
 }
 
-.user-data {
-  border: $border;
+@mixin button-hover {
+  background-color: #167896;
+  color: #67cdd3;
+}
 
+.user-cards-container {
   display: flex;
   flex-wrap: wrap;
-  list-style-type: none;
-  padding: 10px;
-  max-width: 1500px;
-  margin: 20px auto;
-
-  .ant-form-item {
-    display: flex;
-    justify-content: center;
-    flex-basis: 50%;
-    align-items: center;
-    margin-bottom: 20px;
-
-    .ant-form-item-label {
-      font-weight: bold;
-      padding: 8px;
-      letter-spacing: 0.09em;
-      flex: 1 0 120px;
-      max-width: 220px;
-
-      label {
-        color: $textColor;
-      }
-    }
-    input {
-      padding: 10px;
-      border: none;
-      background-color: #5a5353;
-      color: $textColor;
-    }
-  }
-
-  .user-data-buttons {
-    display: block;
-    width: 100%;
-    button {
-      display: block;
-      margin: auto;
-      width: 50%;
-      span {
-        color: white;
-      }
-    }
-
-    button:disabled {
-      background-color: #434343;
-      opacity: 30%;
-    }
-
-    .save-changes {
-      margin-bottom: 10px;
-    }
-  }
 }
 
-.user-posts-btn {
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
-  max-width: 750px;
-  width: 50%;
-}
+.user-card {
+  background: transparent;
+  margin: 10px auto;
+  width: 330px;
 
-.ant-page-header-heading {
-  border: $border;
-  max-width: 1500px;
-  margin: 0 auto;
-
-  .ant-page-header-heading-left {
-    margin: 0 auto;
-
-    .ant-page-header-heading-title {
-      color: $textColor;
-    }
+  .user-card-img {
+    height: 300px;
   }
-}
 
-.notification-success {
-  background-color: #157347;
-
-  .anticon.ant-notification-notice-icon-info {
-    color: #25c97c;
+  .ant-card-body {
+    text-align: center;
   }
-}
 
-.notification-error {
-  background-color: #ff4d4f;
-
-  .anticon.ant-notification-notice-icon-error {
-    color: $textColor;
+  .ant-card-meta-title,
+  .ant-card-meta-description {
+    color: rgb(230, 230, 230);
   }
-}
 
-.ant-notification-notice-message,
-.ant-notification-notice-close {
-  color: $textColor;
+  .user-card-btn {
+    margin-top: 16px;
+
+    @include button();
+  }
+
+  .user-card-btn:hover {
+    @include button-hover();
+  }
 }
