@@ -1,6 +1,7 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { RootState } from '../../app/store/configureStore';
 import { BASE_URL } from '../../app/config';
 import { UsersState, UserInfo } from './types';
 
@@ -58,6 +59,8 @@ const {
   updateUsersSuccess,
   updateUsersFailure,
 } = usersListSlice.actions;
+
+export const usersSelector = (state: RootState) => state.users;
 
 export const { resetUsersState } = usersListSlice.actions;
 // it is not used, because the data shouldn't be reset due to the API not saving it

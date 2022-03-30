@@ -4,6 +4,7 @@ import { notification } from 'antd';
 
 import { BASE_URL } from '../../app/config';
 import { UserState, UserInfo } from './types';
+import { RootState } from '../../app/store/configureStore';
 
 const initialState: UserState = {
   loading: false,
@@ -58,6 +59,8 @@ const {
 } = userSlice.actions;
 export const { resetUserState } = userSlice.actions;
 
+export const userSelector = (state: RootState) => state.user;
+
 export const fetchUser = (userId?: string) => async (dispatch: Dispatch) => {
   dispatch(fetchUserInit());
 
@@ -65,8 +68,8 @@ export const fetchUser = (userId?: string) => async (dispatch: Dispatch) => {
     const { data } = await axios.get(`${USERS_URL}/${userId}`);
 
     dispatch(fetchUserSuccess(data));
-  } catch (error: any) {
-    dispatch(fetchUserFailure(error));
+  } catch (error) {
+    dispatch(fetchUserFailure((error as Error).message));
   }
 };
 
@@ -82,8 +85,8 @@ export const updateUser =
         placement: 'bottomRight',
         className: 'notification-success',
       });
-    } catch (error: any) {
-      dispatch(updateUserFailure(error));
+    } catch (error) {
+      dispatch(updateUserFailure((error as Error).message));
 
       notification.error({
         message: "Failed to save user's data!",

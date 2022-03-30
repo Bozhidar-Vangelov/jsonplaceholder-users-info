@@ -2,15 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List, Empty } from 'antd';
 
-import { fetchUsers } from './usersListSlice';
-import { RootState } from '../../app/store/configureStore';
+import { fetchUsers, usersSelector } from './usersListSlice';
 import UserCard from './UserCard';
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const { error, hasFetched, allUsersInfo } = useSelector(
-    (state: RootState) => state.users
-  );
+  const { error, hasFetched, allUsersInfo } = useSelector(usersSelector);
 
   useEffect(() => {
     // do not refetch data, as the API is not saving it

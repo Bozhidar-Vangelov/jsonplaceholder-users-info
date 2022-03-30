@@ -4,17 +4,14 @@ import { Link, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import { Card, Button, Empty, PageHeader } from 'antd';
 
-import { RootState } from '../../app/store/configureStore';
-import { fetchUser, resetUserState } from './userInfoSlice';
+import { fetchUser, resetUserState, userSelector } from './userInfoSlice';
 import UserData from '../users/UserData';
 import Posts from './posts/Posts';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { error, userInfo, hasFetched } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { error, userInfo, hasFetched } = useSelector(userSelector);
 
   useEffect(() => {
     dispatch(fetchUser(userId));
