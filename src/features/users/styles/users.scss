@@ -126,17 +126,126 @@
 //   color: $textColor;
 // }
 
-@mixin button {
+// ---------------------------------------------------------------------
+
+$textColor: #e6e6e6;
+
+@mixin info-button {
   background-color: #5bc0de;
   color: #1f5356;
   border: none;
   font-weight: bold;
 }
 
-@mixin button-hover {
+@mixin info-button-hover {
   background-color: #167896;
   color: #67cdd3;
 }
+
+@mixin danger-button {
+  background-color: #bb2124;
+  color: #580002;
+  border: none;
+  font-weight: bold;
+}
+
+@mixin danger-button-hover {
+  background-color: #8a1a1b;
+  color: #dd171b;
+  border: none;
+  font-weight: bold;
+}
+
+.user-info-card {
+  display: flex;
+  justify-content: center;
+}
+
+.user-info-card-main {
+  display: block;
+  text-align: center;
+  padding: 1em;
+
+  .user-info-card-main-name {
+    color: $textColor;
+    font-weight: bold;
+    margin: 1em;
+  }
+
+  .user-info-card-main-btns-container {
+    display: block;
+  }
+
+  .user-info-card-main-btns {
+    @include info-button();
+    margin-bottom: 1em;
+  }
+
+  .user-info-card-main-btns:hover {
+    @include info-button-hover();
+  }
+}
+
+.user-info-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+
+  .heading {
+    color: $textColor;
+  }
+
+  label,
+  h2 {
+    color: $textColor;
+    text-align: center;
+  }
+
+  input {
+    background-color: #40575d;
+    color: $textColor;
+  }
+
+  .user-info-form-items-container {
+    align-items: baseline;
+    justify-content: space-between;
+
+    > * {
+      flex-basis: 30%;
+    }
+  }
+
+  .user-info-form-items {
+    width: 100%;
+  }
+
+  .user-info-form-btns-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .user-info-form-btn-save {
+    @include info-button();
+  }
+
+  .user-info-form-btn-save:hover {
+    @include info-button-hover();
+  }
+
+  .user-info-form-btn-save:disabled {
+    opacity: 0.4;
+  }
+
+  .user-info-form-btn-reset {
+    @include danger-button();
+  }
+
+  .user-info-form-btn-reset:hover {
+    @include danger-button-hover();
+  }
+}
+
+// --------------------------------------------------------
 
 .user-cards-container {
   display: flex;
@@ -144,7 +253,8 @@
 }
 
 .user-card {
-  background: transparent;
+  background: #5bc0de3a;
+  border: 2px solid #5bc0de;
   margin: 10px auto;
   width: 330px;
 
@@ -158,16 +268,16 @@
 
   .ant-card-meta-title,
   .ant-card-meta-description {
-    color: rgb(230, 230, 230);
+    color: $textColor;
   }
 
   .user-card-btn {
     margin-top: 16px;
 
-    @include button();
+    @include info-button();
   }
 
   .user-card-btn:hover {
-    @include button-hover();
+    @include info-button-hover();
   }
 }

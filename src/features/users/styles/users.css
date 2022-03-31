@@ -1,3 +1,124 @@
+.user-info-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.user-info-card-main {
+  display: block;
+  text-align: center;
+  padding: 1em;
+}
+
+.user-info-card-main .user-info-card-main-name {
+  color: #e6e6e6;
+  font-weight: bold;
+  margin: 1em;
+}
+
+.user-info-card-main .user-info-card-main-btns-container {
+  display: block;
+}
+
+.user-info-card-main .user-info-card-main-btns {
+  background-color: #5bc0de;
+  color: #1f5356;
+  border: none;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.user-info-card-main .user-info-card-main-btns:hover {
+  background-color: #167896;
+  color: #67cdd3;
+}
+
+.user-info-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1em;
+}
+
+.user-info-form .heading {
+  color: #e6e6e6;
+}
+
+.user-info-form label,
+.user-info-form h2 {
+  color: #e6e6e6;
+  text-align: center;
+}
+
+.user-info-form input {
+  background-color: #40575d;
+  color: #e6e6e6;
+}
+
+.user-info-form .user-info-form-items-container {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.user-info-form .user-info-form-items-container > * {
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
+}
+
+.user-info-form .user-info-form-items {
+  width: 100%;
+}
+
+.user-info-form .user-info-form-btns-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.user-info-form .user-info-form-btn-save {
+  background-color: #5bc0de;
+  color: #1f5356;
+  border: none;
+  font-weight: bold;
+}
+
+.user-info-form .user-info-form-btn-save:hover {
+  background-color: #167896;
+  color: #67cdd3;
+}
+
+.user-info-form .user-info-form-btn-save:disabled {
+  opacity: 0.4;
+}
+
+.user-info-form .user-info-form-btn-reset {
+  background-color: #bb2124;
+  color: #580002;
+  border: none;
+  font-weight: bold;
+}
+
+.user-info-form .user-info-form-btn-reset:hover {
+  background-color: #8a1a1b;
+  color: #dd171b;
+  border: none;
+  font-weight: bold;
+}
+
 .user-cards-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -7,7 +128,8 @@
 }
 
 .user-card {
-  background: transparent;
+  background: #5bc0de3a;
+  border: 2px solid #5bc0de;
   margin: 10px auto;
   width: 330px;
 }

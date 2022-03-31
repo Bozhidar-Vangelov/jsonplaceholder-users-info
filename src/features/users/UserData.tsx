@@ -69,176 +69,223 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
   };
 
   return (
-    <Form
-      name='user'
-      onFinish={onFinish}
-      hidden={!isOpen}
-      className={'user-data'}
-    >
-      <Form.Item label='Name'>
-        <Input
-          name='name'
-          value={userData.name}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleOnChange(event.target.name, event.target.value)
-          }
+    <Space className='user-info-card'>
+      <Space className='user-info-card-main'>
+        <img
+          src={`https://joeschmoe.io/api/v1/${userInfo.id}`}
+          alt={userInfo.name}
+          className='user-info-card-main-img'
         />
-      </Form.Item>
-      <Form.Item
-        label='Username'
-        name='username'
-        initialValue={userData.username}
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input
-          value={userData.username}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleOnChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item
-        label='Email'
-        name='email'
-        initialValue={userData.email}
-        rules={[{ required: true, message: 'Please input your email!' }]}
-      >
-        <Input
-          name='email'
-          value={userData.email}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleOnChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Lat'>
-        <Input
-          name='lat'
-          value={userData.address.geo.lat}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressGeoChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Lng'>
-        <Input
-          name='lng'
-          value={userData.address.geo.lng}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressGeoChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item
-        label='Street'
-        name='street'
-        initialValue={userData.address.street}
-        rules={[{ required: true, message: 'Please input your street!' }]}
-      >
-        <Input
-          name='street'
-          value={userData.address.street}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item
-        label='Suite'
-        name='suite'
-        initialValue={userData.address.suite}
-        rules={[{ required: true, message: 'Please input your suite!' }]}
-      >
-        <Input
-          name='suite'
-          value={userData.address.suite}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item
-        label='City'
-        name='city'
-        initialValue={userData.address.city}
-        rules={[{ required: true, message: 'Please input your city!' }]}
-      >
-        <Input
-          name='city'
-          value={userData.address.city}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Zipcode'>
-        <Input
-          name='zipcode'
-          value={userData.address.zipcode}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleAddressChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Phone'>
-        <Input
-          name='phone'
-          value={userData.phone}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleOnChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Website'>
-        <Input
-          name='website'
-          value={userData.website}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleOnChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Company Name'>
-        <Input
-          name='company-name'
-          value={userData.company.name}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleCompanyChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Company Catch Phrase'>
-        <Input
-          name='company-catchPhrase'
-          value={userData.company.catchPhrase}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleCompanyChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Form.Item label='Company Business'>
-        <Input
-          name='company-bs'
-          value={userData.company.bs}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleCompanyChange(event.target.name, event.target.value)
-          }
-        />
-      </Form.Item>
-      <Space className='user-data-buttons'>
-        <Button
-          type='primary'
-          disabled={isEqual(userInfo, userData)}
-          htmlType='submit'
-          className='save-changes'
-        >
-          Save Changes
-        </Button>
-        <Button type='primary' danger onClick={resetFormData}>
-          Reset
-        </Button>
+        <p className='user-info-card-main-name'>{userInfo.name}</p>
+        <Space className='user-info-card-main-btns-container'>
+          <Button className='user-info-card-main-btns'>
+            Go back to all users
+          </Button>
+          <Button className='user-info-card-main-btns'>See User's posts</Button>
+        </Space>
       </Space>
-    </Form>
+      <Form
+        layout='vertical'
+        name='user'
+        onFinish={onFinish}
+        hidden={!isOpen}
+        className='user-info-form'
+      >
+        <Space className='user-info-form-items-container'>
+          <Space direction='vertical' className='user-info-form-items'>
+            <h2>Personal</h2>
+            <Form.Item label='Name'>
+              <Input
+                name='name'
+                value={userData.name}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleOnChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              label='Username'
+              name='username'
+              initialValue={userData.username}
+              rules={[
+                { required: true, message: 'Please input your username!' },
+              ]}
+            >
+              <Input
+                value={userData.username}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleOnChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Space>
+              <Form.Item
+                label='Email'
+                name='email'
+                initialValue={userData.email}
+                rules={[
+                  { required: true, message: 'Please input your email!' },
+                ]}
+              >
+                <Input
+                  name='email'
+                  value={userData.email}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    handleOnChange(event.target.name, event.target.value)
+                  }
+                />
+              </Form.Item>
+              <Form.Item label='Phone'>
+                <Input
+                  name='phone'
+                  value={userData.phone}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    handleOnChange(event.target.name, event.target.value)
+                  }
+                />
+              </Form.Item>
+            </Space>
+            <Form.Item label='Website'>
+              <Input
+                name='website'
+                value={userData.website}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleOnChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+          </Space>
+          <Space direction='vertical' className='user-info-form-items'>
+            <h2>Address</h2>
+            <Form.Item
+              label='City'
+              name='city'
+              initialValue={userData.address.city}
+              rules={[{ required: true, message: 'Please input your city!' }]}
+            >
+              <Input
+                name='city'
+                value={userData.address.city}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleAddressChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              label='Street'
+              name='street'
+              initialValue={userData.address.street}
+              rules={[{ required: true, message: 'Please input your street!' }]}
+            >
+              <Input
+                name='street'
+                value={userData.address.street}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleAddressChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Form.Item
+              label='Suite'
+              name='suite'
+              initialValue={userData.address.suite}
+              rules={[{ required: true, message: 'Please input your suite!' }]}
+            >
+              <Input
+                name='suite'
+                value={userData.address.suite}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleAddressChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Space>
+              <Form.Item label='Latitude'>
+                <Input
+                  name='lat'
+                  value={userData.address.geo.lat}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    handleAddressGeoChange(
+                      event.target.name,
+                      event.target.value
+                    )
+                  }
+                />
+              </Form.Item>
+              <Form.Item label='Longitude'>
+                <Input
+                  name='lng'
+                  value={userData.address.geo.lng}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    handleAddressGeoChange(
+                      event.target.name,
+                      event.target.value
+                    )
+                  }
+                />
+              </Form.Item>
+              <Form.Item label='Zipcode'>
+                <Input
+                  name='zipcode'
+                  value={userData.address.zipcode}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    handleAddressChange(event.target.name, event.target.value)
+                  }
+                />
+              </Form.Item>
+            </Space>
+          </Space>
+          <Space direction='vertical' className='user-info-form-items'>
+            <h2>Company</h2>
+            <Form.Item label='Name'>
+              <Input
+                name='company-name'
+                value={userData.company.name}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleCompanyChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Form.Item label='Catch Phrase'>
+              <Input
+                name='company-catchPhrase'
+                value={userData.company.catchPhrase}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleCompanyChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+            <Form.Item label='Business'>
+              <Input
+                name='company-bs'
+                value={userData.company.bs}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  handleCompanyChange(event.target.name, event.target.value)
+                }
+              />
+            </Form.Item>
+          </Space>
+        </Space>
+        <Space className='user-info-form-btns-container'>
+          <Button
+            type='primary'
+            disabled={isEqual(userInfo, userData)}
+            htmlType='submit'
+            className='user-info-form-btn-save'
+          >
+            Save Changes
+          </Button>
+          <Button
+            type='primary'
+            danger
+            onClick={resetFormData}
+            className='user-info-form-btn-reset'
+          >
+            Reset
+          </Button>
+        </Space>
+      </Form>
+    </Space>
   );
 };
 
