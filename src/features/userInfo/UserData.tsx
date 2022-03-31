@@ -1,20 +1,20 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
-import { updateUsers } from './usersListSlice';
-import { UserInfo } from './types';
-import { updateUser } from '../userInfo/userInfoSlice';
+import { updateUsers } from '../users/usersListSlice';
+import { UserInfo } from '../users/types';
+import { updateUser } from './userInfoSlice';
 
 interface UserProps {
   userInfo: UserInfo;
-  isOpen: boolean;
 }
 
-const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
+const UserData: FC<UserProps> = ({ userInfo }) => {
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState(userInfo);
+  const [userData, setUserData] = useState<UserInfo>(userInfo);
 
   const onFinish = () => {
     //updates both allUsersInfo and userInfo in store, as the API is not saving the data
@@ -79,7 +79,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         <p className='user-info-card-main-name'>{userInfo.name}</p>
         <Space className='user-info-card-main-btns-container'>
           <Button className='user-info-card-main-btns'>
-            Go back to all users
+            <Link to='/'>Go back to all users</Link>
           </Button>
           <Button className='user-info-card-main-btns'>See User's posts</Button>
         </Space>
@@ -88,7 +88,6 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
         layout='vertical'
         name='user'
         onFinish={onFinish}
-        hidden={!isOpen}
         className='user-info-form'
       >
         <Space className='user-info-form-items-container'>
@@ -112,6 +111,7 @@ const UserData: FC<UserProps> = ({ userInfo, isOpen }) => {
               ]}
             >
               <Input
+                name='username'
                 value={userData.username}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   handleOnChange(event.target.name, event.target.value)

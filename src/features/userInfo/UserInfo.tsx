@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
-import { Card, Button, Empty, PageHeader } from 'antd';
+import { Card, Empty, Button } from 'antd';
 
 import { fetchUser, resetUserState, userSelector } from './userInfoSlice';
-import UserData from '../users/UserData';
+import UserData from './UserData';
 import Posts from './posts/Posts';
 
 const UserInfo = () => {
@@ -26,19 +26,8 @@ const UserInfo = () => {
   }
 
   return (
-    <Card
-      loading={!hasFetched}
-      cover={
-        <img alt='example' src={`https://joeschmoe.io/api/v1/${userInfo.id}`} />
-      }
-      className='user-posts'
-    >
-      <Button type='primary' className='user-posts-btn'>
-        <Link to='/'>Go back to all users</Link>
-      </Button>
-      <PageHeader title="User's info" />
-      <UserData userInfo={userInfo} isOpen={true} />
-      <PageHeader title="User's posts" />
+    <Card loading={!hasFetched} className='user-posts'>
+      <UserData userInfo={userInfo} />
       <Posts />
     </Card>
   );
