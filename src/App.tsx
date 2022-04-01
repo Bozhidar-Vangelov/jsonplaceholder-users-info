@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import './App.css';
+import './App.scss';
 import UsersList from './features/users/UsersList';
 import UserInfo from './features/userInfo/UserInfo';
 

@@ -5,7 +5,7 @@ import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
 import { updateUsers } from '../users/usersListSlice';
-import { postsSelector, togglePosts } from './posts/postsSlice';
+import { postsSelector, setShowPostsState } from './posts/postsSlice';
 import { UserInfo } from '../users/types';
 import { updateUser } from './userInfoSlice';
 
@@ -71,7 +71,7 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
   };
 
   const handlePostsClick = () => {
-    dispatch(togglePosts(!showPosts));
+    dispatch(setShowPostsState(!showPosts));
   };
 
   return (
@@ -84,12 +84,12 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
         />
         <p className='user-info-card-main-name'>{userInfo.name}</p>
         <Space className='user-info-card-main-btns-container'>
-          <Button className='user-info-card-main-btns'>
+          <Button className='user-info-card-main-btns info-btn'>
             <Link to='/'>Go back to all users</Link>
           </Button>
           <Button
             onClick={handlePostsClick}
-            className='user-info-card-main-btns'
+            className='user-info-card-main-btns info-btn'
           >
             {`${showPosts ? "Hide User's posts" : "See User's posts"}`}
           </Button>
@@ -279,18 +279,15 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
         </Space>
         <Space className='user-info-form-btns-container'>
           <Button
-            type='primary'
             disabled={isEqual(userInfo, userData)}
             htmlType='submit'
-            className='user-info-form-btn-save'
+            className='user-info-form-btn-save success-btn'
           >
             Save Changes
           </Button>
           <Button
-            type='primary'
-            danger
             onClick={resetFormData}
-            className='user-info-form-btn-reset'
+            className='user-info-form-btn-reset danger-btn'
           >
             Reset
           </Button>

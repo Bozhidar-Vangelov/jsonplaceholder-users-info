@@ -1,0 +1,34 @@
+$backgroundColor: #5bc0de3a;
+$textColor: #e6e6e6;
+
+.ant-modal-content {
+  background: linear-gradient(to right, #434343 0%, black 100%);
+
+  > div {
+    background: $backgroundColor;
+  }
+
+  > * {
+    color: $textColor;
+  }
+
+  .ant-modal-title {
+    color: $textColor;
+  }
+
+  .ant-modal-body {
+    .ant-form-item-required {
+      color: $textColor;
+    }
+
+    .ant-input {
+      background: $backgroundColor;
+      color: $textColor;
+    }
+  }
+
+  .ant-modal-confirm-content,
+  .ant-modal-confirm-title {
+    color: $textColor;
+  }
+}

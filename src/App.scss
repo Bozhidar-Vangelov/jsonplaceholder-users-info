@@ -1,0 +1,17 @@
+@import '~antd/dist/antd.css';
+@import './src/features/users/styles/users.scss';
+@import './src/features/userInfo/styles/userInfo.scss';
+@import './src/features/userInfo/posts/styles/posts.scss';
+@import './shared/modal.scss';
+@import './shared/buttons.scss';
+@import './shared/notifications.scss';
+
+body {
+  background: linear-gradient(to right, #434343 0%, black 100%);
+  font-family: 'Roboto', sans-serif;
+}
+
+.divider {
+  background-color: #5bc0de;
+  height: 0.3em;
+}

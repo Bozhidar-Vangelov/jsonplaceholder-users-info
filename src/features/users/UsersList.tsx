@@ -38,7 +38,7 @@ const UsersList = () => {
           className='user-card'
         >
           <Card.Meta title={userInfo.name} description={userInfo.username} />
-          <Button className='user-card-btn'>
+          <Button className='user-card-btn info-btn'>
             <Link to={`users/${userInfo.id}`}>See user's info</Link>
           </Button>
         </Card>

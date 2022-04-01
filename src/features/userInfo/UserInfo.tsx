@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
-import { Card, Empty, Button } from 'antd';
+import { Card, Empty } from 'antd';
 
 import { fetchUser, resetUserState, userSelector } from './userInfoSlice';
-import { postsSelector, togglePosts } from './posts/postsSlice';
+import { postsSelector, setShowPostsState } from './posts/postsSlice';
 import UserData from './UserData';
 import Posts from './posts/Posts';
 
@@ -20,7 +20,7 @@ const UserInfo = () => {
 
     return () => {
       dispatch(resetUserState());
-      dispatch(togglePosts(false));
+      dispatch(setShowPostsState(false));
     };
   }, [dispatch, userId]);
 
@@ -29,7 +29,7 @@ const UserInfo = () => {
   }
 
   return (
-    <Card loading={!hasFetched} className='user-posts'>
+    <Card loading={!hasFetched} className='user-info'>
       <UserData userInfo={userInfo} />
       {showPosts ? <Posts /> : <></>}
     </Card>

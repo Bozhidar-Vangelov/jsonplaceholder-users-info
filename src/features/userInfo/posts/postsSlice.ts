@@ -83,7 +83,7 @@ const postsSlice = createSlice({
       state.postLoading = false;
       state.error = action.payload;
     },
-    showPosts(state, action) {
+    setShowPostsState(state, action: PayloadAction<boolean>) {
       state.showPosts = action.payload;
     },
   },
@@ -104,8 +104,9 @@ const {
   createPostInit,
   createPostSuccess,
   createPostFailure,
-  showPosts,
 } = postsSlice.actions;
+
+export const { setShowPostsState } = postsSlice.actions;
 
 export const postsSelector = (state: RootState) => state.posts;
 
@@ -191,8 +192,4 @@ export const createPost = (data: PostInfo) => async (dispatch: Dispatch) => {
       className: 'notification-error',
     });
   }
-};
-
-export const togglePosts = (toggle: boolean) => (dispatch: Dispatch) => {
-  dispatch(showPosts(toggle));
 };

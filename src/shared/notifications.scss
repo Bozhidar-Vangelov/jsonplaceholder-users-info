@@ -1,0 +1,20 @@
+.notification-success {
+  background-color: #13641d;
+
+  .anticon.ant-notification-notice-icon-info {
+    color: #22bb33;
+  }
+}
+
+.notification-error {
+  background-color: #5c0002;
+
+  .anticon.ant-notification-notice-icon-error {
+    color: #bb2124;
+  }
+}
+
+.ant-notification-notice-message,
+.ant-notification-notice-close {
+  color: $textColor;
+}

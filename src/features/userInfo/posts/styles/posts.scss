@@ -1,102 +1,42 @@
-$border: 3px solid white;
-$textColor: rgb(230, 230, 230);
-$background: linear-gradient(to right, #434343 0%, black 100%);
+$textColor: #e6e6e6;
 
-.create-post-btn {
+.create-post-btn-container {
   display: flex;
-  justify-content: center;
-  margin: 20px auto;
-  max-width: 750px;
-  width: 50%;
-  color: $textColor;
-  border-color: #157347;
-  background-color: #157347;
+  justify-content: flex-end;
+  margin: 1em 5.5em;
+
+  .create-post-btn {
+    width: 15em;
+  }
 }
 
-.create-post-btn:hover {
-  color: $textColor;
-  border-color: #1fa164;
-  background-color: #1fa164;
-}
-
-.posts {
-  border: $border;
+.posts > div {
   display: flex;
   flex-wrap: wrap;
-  list-style-type: none;
-  padding: 10px;
-  max-width: 1500px;
-  margin: 20px auto;
-
-  .post-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 730px;
-    height: 200px;
-
-    .post {
-      width: 730px;
-      height: 200px;
-
-      background-color: #494949;
-      color: $textColor;
-
-      .ant-card-head {
-        color: $textColor;
-      }
-
-      .post-buttons {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .edit-post-input {
-        color: $textColor;
-        background-color: #727272;
-      }
-    }
-  }
+  justify-content: center;
 }
 
-.ant-modal-content {
-  background: $background;
-
-  .ant-modal-header {
-    background: $background;
-
-    .ant-modal-title {
-      color: $textColor;
-    }
-  }
-
-  .confirm-btn,
-  .cancel-btn {
-    background: inherit;
-  }
-
-  .confirm-btn {
-    color: #157347;
-  }
-
-  .cancel-btn {
+.post {
+  max-width: 45%;
+  flex-basis: 45%;
+  margin: 1em;
+  background: #5bc0de3a;
+  > * {
     color: $textColor;
   }
 
-  .ant-modal-body {
-    .ant-modal-confirm-title,
-    .ant-modal-confirm-content {
-      color: $textColor;
-    }
+  .post-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .ant-form-item-required {
-      color: $textColor;
-    }
+  .edit-post-input {
+    background: transparent;
+    color: $textColor;
+    padding: 1%;
+  }
 
-    .ant-input {
-      background: #727272;
-      color: $textColor;
-    }
+  .edit-post-input-body {
+    margin-bottom: 2%;
   }
 }

@@ -1,9 +1,8 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Space, Card, Button, Modal, Input, Spin } from 'antd';
+import { useDispatch } from 'react-redux';
+import { Space, Card, Button, Modal, Input } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-import { RootState } from '../../../app/store/configureStore';
 import { deletePost, updatePosts } from './postsSlice';
 
 interface PostProps {
@@ -27,9 +26,8 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
       icon: <ExclamationCircleOutlined />,
       content: 'This action cannot be undone!',
       okText: 'Confirm',
-      okType: 'danger',
-      okButtonProps: { className: 'confirm-btn' },
-      cancelButtonProps: { className: 'cancel-btn' },
+      okButtonProps: { className: 'confirm-btn success-btn' },
+      cancelButtonProps: { className: 'cancel-btn danger-btn' },
       onOk: () => dispatch(deletePost(id)),
     });
   };
@@ -52,7 +50,7 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
   };
 
   return (
-    <Space className='post-container'>
+    <>
       {isEdit ? (
         <Card
           className='post'
@@ -73,13 +71,20 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleOnChange(event.target.name, event.target.value)
             }
-            className='edit-post-input'
+            className='edit-post-input edit-post-input-body'
           />
           <Space className='post-buttons'>
-            <Button type='primary' onClick={handleOnSave}>
+            <Button
+              onClick={handleOnSave}
+              className='post-button-success success-btn'
+            >
               Save changes
             </Button>
-            <Button type='primary' danger onClick={handleOnDiscard}>
+            <Button
+              danger
+              onClick={handleOnDiscard}
+              className='post-button-danger danger-btn'
+            >
               Discard changes
             </Button>
           </Space>
@@ -88,16 +93,23 @@ const Post: FC<PostProps> = ({ userId, id, title, body }) => {
         <Card title={post.title} className='post'>
           <p>{post.body}</p>
           <Space className='post-buttons'>
-            <Button type='primary' onClick={() => setIsEdit(true)}>
+            <Button
+              onClick={() => setIsEdit(true)}
+              className='post-button-warning warning-btn'
+            >
               Edit post
             </Button>
-            <Button type='primary' danger onClick={handleOnDelete}>
+            <Button
+              danger
+              onClick={handleOnDelete}
+              className='post-button-danger danger-btn'
+            >
               Delete post
             </Button>
           </Space>
         </Card>
       )}
-    </Space>
+    </>
   );
 };
 
