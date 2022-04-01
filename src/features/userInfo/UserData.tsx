@@ -1,10 +1,11 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input, Button, Space } from 'antd';
 import { isEqual } from 'lodash';
 
 import { updateUsers } from '../users/usersListSlice';
+import { postsSelector, togglePosts } from './posts/postsSlice';
 import { UserInfo } from '../users/types';
 import { updateUser } from './userInfoSlice';
 
@@ -14,6 +15,7 @@ interface UserProps {
 
 const UserData: FC<UserProps> = ({ userInfo }) => {
   const dispatch = useDispatch();
+  const { showPosts } = useSelector(postsSelector);
   const [userData, setUserData] = useState<UserInfo>(userInfo);
 
   const onFinish = () => {
@@ -68,6 +70,10 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
     setUserData(userInfo);
   };
 
+  const handlePostsClick = () => {
+    dispatch(togglePosts(!showPosts));
+  };
+
   return (
     <Space className='user-info-card'>
       <Space className='user-info-card-main'>
@@ -81,7 +87,12 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
           <Button className='user-info-card-main-btns'>
             <Link to='/'>Go back to all users</Link>
           </Button>
-          <Button className='user-info-card-main-btns'>See User's posts</Button>
+          <Button
+            onClick={handlePostsClick}
+            className='user-info-card-main-btns'
+          >
+            {`${showPosts ? "Hide User's posts" : "See User's posts"}`}
+          </Button>
         </Space>
       </Space>
       <Form

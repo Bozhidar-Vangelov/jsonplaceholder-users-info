@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
-import { Empty, Spin, Button, Modal, Form, Input, Space } from 'antd';
+import { Empty, Spin, Button, Modal, Form, Input, Space, Card } from 'antd';
 
 import { RootState } from '../../../app/store/configureStore';
 import { fetchPosts, createPost, postsSelector } from './postsSlice';

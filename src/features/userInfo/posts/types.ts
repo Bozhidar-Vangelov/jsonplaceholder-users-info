@@ -4,6 +4,7 @@ export interface PostsState {
   allPostsInfo: PostInfo[];
   hasFetched: boolean;
   postLoading: boolean;
+  showPosts: boolean;
 }
 
 export interface PostInfo {

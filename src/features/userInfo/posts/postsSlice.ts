@@ -4,6 +4,7 @@ import { notification } from 'antd';
 
 import { PostsState, PostInfo } from './types';
 import { RootState } from '../../../app/store/configureStore';
+import { BASE_URL } from '../../../app/config';
 
 const initialState: PostsState = {
   loading: false,
@@ -11,9 +12,10 @@ const initialState: PostsState = {
   allPostsInfo: [],
   hasFetched: false,
   postLoading: false,
+  showPosts: false,
 };
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com/posts';
+const POSTS_URL = `${BASE_URL}/posts`;
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -28,7 +30,8 @@ const postsSlice = createSlice({
       state.loading = false;
       state.allPostsInfo = action.payload;
       state.hasFetched = true;
-      state.error = '';
+      state.showPosts = true;
+      state.error = null;
     },
     fetchPostsFailure(state, action) {
       state.loading = false;
@@ -80,6 +83,9 @@ const postsSlice = createSlice({
       state.postLoading = false;
       state.error = action.payload;
     },
+    showPosts(state, action) {
+      state.showPosts = action.payload;
+    },
   },
 });
 
@@ -98,6 +104,7 @@ const {
   createPostInit,
   createPostSuccess,
   createPostFailure,
+  showPosts,
 } = postsSlice.actions;
 
 export const postsSelector = (state: RootState) => state.posts;
@@ -106,7 +113,7 @@ export const fetchPosts = () => async (dispatch: Dispatch) => {
   dispatch(fetchPostsInit());
 
   try {
-    const { data } = await axios.get(BASE_URL);
+    const { data } = await axios.get(POSTS_URL);
 
     dispatch(fetchPostsSuccess(data));
   } catch (error) {
@@ -117,7 +124,7 @@ export const fetchPosts = () => async (dispatch: Dispatch) => {
 export const deletePost = (postId: number) => async (dispatch: Dispatch) => {
   dispatch(deletePostsInit());
   try {
-    await axios.delete(`${BASE_URL}/${postId}/`);
+    await axios.delete(`${POSTS_URL}/${postId}/`);
 
     dispatch(deletePostSuccess(postId));
 
@@ -142,7 +149,7 @@ export const updatePosts =
     dispatch(updatePostsInit());
 
     try {
-      await axios.put(`${BASE_URL}/${postId}`, data);
+      await axios.put(`${POSTS_URL}/${postId}`, data);
 
       dispatch(updatePostsSuccess(data));
 
@@ -166,7 +173,7 @@ export const createPost = (data: PostInfo) => async (dispatch: Dispatch) => {
   dispatch(createPostInit());
 
   try {
-    await axios.post(BASE_URL, data);
+    await axios.post(POSTS_URL, data);
 
     dispatch(createPostSuccess(data));
 
@@ -184,4 +191,8 @@ export const createPost = (data: PostInfo) => async (dispatch: Dispatch) => {
       className: 'notification-error',
     });
   }
+};
+
+export const togglePosts = (toggle: boolean) => (dispatch: Dispatch) => {
+  dispatch(showPosts(toggle));
 };
