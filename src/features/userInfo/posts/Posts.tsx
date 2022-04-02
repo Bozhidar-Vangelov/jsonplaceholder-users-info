@@ -55,7 +55,7 @@ const Posts = () => {
   };
 
   return (
-    <Spin size='large' spinning={loading}>
+    <>
       <Space className='create-post-btn-container'>
         <Button
           className='create-post-btn success-btn'
@@ -64,55 +64,57 @@ const Posts = () => {
           Create Post
         </Button>
       </Space>
-      <Divider className='divider' />
-      <Modal
-        visible={showCreateModal}
-        title='Create Post'
-        okText='Confirm'
-        okButtonProps={{ className: 'confirm-btn success-btn' }}
-        cancelButtonProps={{ className: 'cancel-btn danger-btn' }}
-        onOk={handleOnCreate}
-        onCancel={() => setShowCreateModal(false)}
-      >
-        <Form form={form} id='create-post'>
-          <Form.Item
-            label='Title'
-            name='title'
-            rules={[
-              {
-                required: true,
-                message: 'Please input the title of post!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label='Body'
-            name='body'
-            rules={[
-              {
-                required: true,
-                message: 'Please input the body of post!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
-      <Spin tip='Loading...' spinning={postLoading} wrapperClassName='posts'>
-        {userPosts.map((post) => (
-          <Post
-            key={post.id}
-            userId={post.userId}
-            id={post.id}
-            body={post.body}
-            title={post.title}
-          />
-        ))}
+      <Spin size='large' spinning={loading}>
+        <Divider className='divider' />
+        <Modal
+          visible={showCreateModal}
+          title='Create Post'
+          okText='Confirm'
+          okButtonProps={{ className: 'confirm-btn success-btn' }}
+          cancelButtonProps={{ className: 'cancel-btn danger-btn' }}
+          onOk={handleOnCreate}
+          onCancel={() => setShowCreateModal(false)}
+        >
+          <Form form={form} id='create-post'>
+            <Form.Item
+              label='Title'
+              name='title'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input the title of post!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label='Body'
+              name='body'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input the body of post!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Form>
+        </Modal>
+        <Spin tip='Loading...' spinning={postLoading} wrapperClassName='posts'>
+          {userPosts.map((post) => (
+            <Post
+              key={post.id}
+              userId={post.userId}
+              id={post.id}
+              body={post.body}
+              title={post.title}
+            />
+          ))}
+        </Spin>
       </Spin>
-    </Spin>
+    </>
   );
 };
 
