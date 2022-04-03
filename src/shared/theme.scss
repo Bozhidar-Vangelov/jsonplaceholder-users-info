@@ -1,0 +1,41 @@
+.ant-switch {
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  top: 1%;
+  //   background: #5bc0de !important;
+  background: #1f1e1e !important;
+
+  .ant-switch-inner {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.ant-switch-checked {
+  background: #5bc0de !important;
+}
+
+.ant-switch-checked ~ * {
+  background: linear-gradient(to right, #fff 0%, #a7f2f5 100%) !important;
+
+  .ant-modal-content > div {
+    background-color: white;
+  }
+
+  h2,
+  p,
+  label,
+  input,
+  div {
+    color: #1f1e1e !important;
+  }
+
+  .post {
+    background-color: #5bc0de !important;
+  }
+
+  .ant-input {
+    background-color: #5bc0de !important;
+  }
+}
