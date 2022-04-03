@@ -12,7 +12,7 @@ import Posts from './posts/Posts';
 const UserInfo = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const { error, userInfo, hasFetched } = useSelector(userSelector);
+  const { error, userInfo, hasFetched, loading } = useSelector(userSelector);
   const { showPosts } = useSelector(postsSelector);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const UserInfo = () => {
   }
 
   return (
-    <Card loading={!hasFetched} className='user-info'>
+    <Card loading={!hasFetched || loading} className='user-info'>
       <UserData userInfo={userInfo} />
       {showPosts ? <Posts /> : <></>}
     </Card>

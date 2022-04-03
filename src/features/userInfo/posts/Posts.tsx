@@ -32,7 +32,7 @@ const Posts = () => {
     if (isEmpty(userPosts)) {
       dispatch(fetchPosts());
     }
-  }, []);
+  });
 
   if (error && isEmpty(userPosts)) {
     return <Empty description='Failed to load data' />;

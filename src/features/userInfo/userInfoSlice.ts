@@ -35,7 +35,10 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
     resetUserState: () => initialState,
-
+    updateUserInit(state) {
+      state.loading = true;
+      state.error = null;
+    },
     updateUserSuccess(state, action: PayloadAction<UserInfo>) {
       state.loading = false;
       state.userInfo = action.payload;
@@ -54,6 +57,7 @@ const {
   fetchUserInit,
   fetchUserSuccess,
   fetchUserFailure,
+  updateUserInit,
   updateUserSuccess,
   updateUserFailure,
 } = userSlice.actions;
@@ -75,6 +79,7 @@ export const fetchUser = (userId?: string) => async (dispatch: Dispatch) => {
 
 export const updateUser =
   (userId: number, data: UserInfo) => async (dispatch: Dispatch) => {
+    dispatch(updateUserInit());
     try {
       await axios.put(`${USERS_URL}/${userId}`, data);
 
