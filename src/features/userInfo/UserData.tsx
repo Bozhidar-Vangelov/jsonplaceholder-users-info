@@ -18,9 +18,7 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
   const { showPosts } = useSelector(postsSelector);
   const [userData, setUserData] = useState<UserInfo>(userInfo);
 
-  const onFinish = (values: any) => {
-    console.log(values);
-
+  const onFinish = () => {
     //updates both allUsersInfo and userInfo in store, as the API is not saving the data
     dispatch(updateUsers(userInfo.id, userData));
     dispatch(updateUser(userInfo.id, userData));
