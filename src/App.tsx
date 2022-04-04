@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from 'antd';
+import { BulbOutlined, BulbFilled } from '@ant-design/icons';
 
 import './App.scss';
 import UsersList from './features/users/UsersList';
@@ -25,8 +26,8 @@ const App = () => {
     <>
       <Switch
         onClick={switchTheme}
-        checkedChildren={'\u263C'}
-        unCheckedChildren={'\u263E'}
+        checkedChildren={<BulbOutlined />}
+        unCheckedChildren={<BulbFilled />}
         defaultChecked={false}
       />
       <Routes>
