@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import { Empty, Spin, Button, Modal, Form, Input, Space, Divider } from 'antd';
 
 import { fetchPosts, createPost, postsSelector } from './postsSlice';
+import { themeSelector } from '../../../shared/theme/themeProvider';
 import Post from './Post';
 
 interface NewPost {
@@ -22,6 +23,7 @@ const Posts = () => {
 
   const { loading, error, allPostsInfo, postLoading } =
     useSelector(postsSelector);
+  const { currentTheme } = useSelector(themeSelector);
 
   const userPosts = allPostsInfo.filter(
     (post) => post.userId === Number(userId)
@@ -74,6 +76,7 @@ const Posts = () => {
           cancelButtonProps={{ className: 'cancel-btn danger-btn' }}
           onOk={handleOnCreate}
           onCancel={() => setShowCreateModal(false)}
+          className={currentTheme}
         >
           <Form form={form} id='create-post'>
             <Form.Item

@@ -11,15 +11,16 @@
   }
 }
 
-.ant-switch-checked {
-  background: #5bc0de;
-}
-
-.ant-switch-checked ~ * {
+.light {
   background: linear-gradient(to right, #fff 0%, #a7f2f5 100%);
 
-  .ant-modal-content > div {
-    background-color: white;
+  .ant-switch {
+    background: #5bc0de;
+  }
+
+  .user-info,
+  .user-cards-container {
+    background: linear-gradient(to right, #fff 0%, #a7f2f5 100%);
   }
 
   h2,
@@ -37,21 +38,19 @@
   .ant-input {
     background-color: #5bc0de !important;
   }
+
+  .ant-modal-content {
+    background: #5bc0de;
+
+    label,
+    input,
+    span,
+    div {
+      color: black !important;
+    }
+
+    input {
+      border: 1px solid black;
+    }
+  }
 }
-
-// .light {
-//   .ant-modal-content {
-//     background: #5bc0de;
-
-//     label,
-//     input,
-//     span,
-//     div {
-//       color: black !important;
-//     }
-
-//     input {
-//       border: 1px solid black;
-//     }
-//   }
-// }
