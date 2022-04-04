@@ -76,6 +76,10 @@ $textColor: #e6e6e6;
       background-color: #40575d;
       color: $textColor;
     }
+
+    .ant-input-status-error {
+      color: #404040;
+    }
   }
 
   .user-info-form-items {

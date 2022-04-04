@@ -136,7 +136,11 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
                 name='email'
                 initialValue={userData.email}
                 rules={[
-                  { required: true, message: 'Please input your email!' },
+                  {
+                    type: 'email',
+                    required: true,
+                    message: 'Please input valid email!',
+                  },
                 ]}
               >
                 <Input
