@@ -18,7 +18,9 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
   const { showPosts } = useSelector(postsSelector);
   const [userData, setUserData] = useState<UserInfo>(userInfo);
 
-  const onFinish = () => {
+  const onFinish = (values: any) => {
+    console.log(values);
+
     //updates both allUsersInfo and userInfo in store, as the API is not saving the data
     dispatch(updateUsers(userInfo.id, userData));
     dispatch(updateUser(userInfo.id, userData));
@@ -107,6 +109,7 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
             <Form.Item label='Name'>
               <Input
                 name='name'
+                defaultValue={userData.name}
                 value={userData.name}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   handleOnChange(event.target.name, event.target.value)
@@ -288,6 +291,7 @@ const UserData: FC<UserProps> = ({ userInfo }) => {
           <Button
             onClick={resetFormData}
             className='user-info-form-btn-reset danger-btn'
+            htmlType='reset'
           >
             Reset
           </Button>

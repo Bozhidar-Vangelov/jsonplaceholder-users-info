@@ -26,6 +26,7 @@
   input,
   .post {
     border: 0.1em solid #1f1e1e;
+    background-color: #5bc0de !important;
   }
 
   .ant-card-head {
@@ -40,12 +41,12 @@
     color: #1f1e1e !important;
   }
 
-  .post {
-    background-color: #5bc0de !important;
+  .ant-input-status-error {
+    background-color: #a7f2f5 !important;
   }
 
-  .ant-input {
-    background-color: #5bc0de !important;
+  .ant-form-item-explain-error {
+    color: #ff4d4f !important;
   }
 
   .ant-modal {
