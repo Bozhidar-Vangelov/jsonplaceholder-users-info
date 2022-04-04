@@ -57,4 +57,25 @@
       }
     }
   }
+
+  .notification-success {
+    background-color: #a5ffaf;
+
+    .anticon.ant-notification-notice-icon-info {
+      color: #13641d;
+    }
+  }
+
+  .notification-error {
+    background-color: #ff7e80;
+
+    .anticon.ant-notification-notice-icon-error {
+      color: #5c0002;
+    }
+  }
+
+  .ant-notification-notice-message,
+  .ant-notification-notice-close {
+    color: #1f1e1e;
+  }
 }

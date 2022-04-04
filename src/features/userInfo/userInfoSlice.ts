@@ -89,6 +89,7 @@ export const updateUser =
         message: "User's data successfully saved!",
         placement: 'bottomRight',
         className: 'notification-success',
+        duration: 5000,
       });
     } catch (error) {
       dispatch(updateUserFailure((error as Error).message));
