@@ -39,18 +39,22 @@
     background-color: #5bc0de !important;
   }
 
-  .ant-modal-content {
-    background: #5bc0de;
+  .ant-modal {
+    background: none;
 
-    label,
-    input,
-    span,
-    div {
-      color: black !important;
-    }
+    .ant-modal-content {
+      background: #5bc0de;
 
-    input {
-      border: 1px solid black;
+      label,
+      input,
+      span,
+      div {
+        color: #1f1e1e !important;
+      }
+
+      input {
+        border: 0.1em solid #1f1e1e;
+      }
     }
   }
 }
