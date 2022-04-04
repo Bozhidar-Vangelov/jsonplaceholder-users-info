@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store/configureStore';
+import { RootState } from '../../../app/store/configureStore';
 
 const initialState = {
   currentTheme: 'dark',

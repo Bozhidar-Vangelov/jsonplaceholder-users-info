@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { Empty, Spin, Button, Modal, Form, Input, Space, Divider } from 'antd';
 
 import { fetchPosts, createPost, postsSelector } from './postsSlice';
-import { themeSelector } from '../../../shared/theme/themeProvider';
+import { themeSelector } from '../../../shared/styles/theme/themeProviderSlice';
 import Post from './Post';
 
 interface NewPost {

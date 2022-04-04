@@ -2,10 +2,10 @@
 @import './src/features/users/styles/users.scss';
 @import './src/features/userInfo/styles/userInfo.scss';
 @import './src/features/userInfo/posts/styles/posts.scss';
-@import './shared/modal.scss';
-@import './shared/buttons.scss';
-@import './shared/notifications.scss';
-@import './shared/theme/theme.scss';
+@import './shared/styles/modal.scss';
+@import './shared/styles/buttons.scss';
+@import './shared/styles/notifications.scss';
+@import './shared/styles/theme/theme.scss';
 
 body {
   background: linear-gradient(to right, #434343 0%, black 100%);
