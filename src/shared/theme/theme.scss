@@ -23,6 +23,15 @@
     background: linear-gradient(to right, #fff 0%, #a7f2f5 100%);
   }
 
+  input,
+  .post {
+    border: 0.1em solid #1f1e1e;
+  }
+
+  .ant-card-head {
+    border-bottom: 0.1em solid #1f1e1e;
+  }
+
   h2,
   p,
   label,
@@ -45,15 +54,8 @@
     .ant-modal-content {
       background: #5bc0de;
 
-      label,
-      input,
-      span,
-      div {
+      span {
         color: #1f1e1e !important;
-      }
-
-      input {
-        border: 0.1em solid #1f1e1e;
       }
     }
   }
