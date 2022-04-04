@@ -5,10 +5,15 @@ $textColor: #e6e6e6;
 .user-info {
   font-family: 'Roboto', sans-serif;
   background: $background;
-  border: 0.3em solid #5bc0de;
+  border: none;
 
   > div {
     padding: 0;
+  }
+
+  .divider {
+    background-color: #5bc0de;
+    height: 0.2em;
   }
 }
 

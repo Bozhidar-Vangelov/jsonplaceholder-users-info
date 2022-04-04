@@ -3,8 +3,7 @@
   z-index: 1;
   left: 90%;
   top: 1%;
-  //   background: #5bc0de !important;
-  background: #1f1e1e !important;
+  background: #404040;
 
   .ant-switch-inner {
     font-weight: bold;
@@ -13,11 +12,11 @@
 }
 
 .ant-switch-checked {
-  background: #5bc0de !important;
+  background: #5bc0de;
 }
 
 .ant-switch-checked ~ * {
-  background: linear-gradient(to right, #fff 0%, #a7f2f5 100%) !important;
+  background: linear-gradient(to right, #fff 0%, #a7f2f5 100%);
 
   .ant-modal-content > div {
     background-color: white;
@@ -39,3 +38,20 @@
     background-color: #5bc0de !important;
   }
 }
+
+// .light {
+//   .ant-modal-content {
+//     background: #5bc0de;
+
+//     label,
+//     input,
+//     span,
+//     div {
+//       color: black !important;
+//     }
+
+//     input {
+//       border: 1px solid black;
+//     }
+//   }
+// }
